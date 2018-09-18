@@ -5,16 +5,23 @@
  */
 package Telas;
 
+import Manipuladores.Cryp;
+import Manipuladores.ListdataInterpreter;
 import Manipuladores.UserManer;
 import Paineis.PainelCriarLista;
+import Paineis.PainelFifo;
 import java.io.File;
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import Interfaces.IopenInterface;
 
 /**
  *
  * @author erik
  */
-public class TelaPrincipal extends javax.swing.JFrame {
+public class TelaPrincipal extends javax.swing.JFrame implements IopenInterface{
 
     /**
      * Creates new form TelaPrincipal
@@ -22,13 +29,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         initComponents();
     }
-    
+
     public TelaPrincipal(String username, int key) {
         initComponents();
         this.username = username;
         this.key = key;
     }
-    
+
     private String username;
     private int key;
 
@@ -46,8 +53,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         b_novo = new javax.swing.JMenuItem();
         b_abrir = new javax.swing.JMenuItem();
-        b_salvar = new javax.swing.JMenuItem();
-        b_salvarComo = new javax.swing.JMenuItem();
         b_sair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,15 +70,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         b_abrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         b_abrir.setText("Abrir");
+        b_abrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_abrirActionPerformed(evt);
+            }
+        });
         jMenu1.add(b_abrir);
-
-        b_salvar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        b_salvar.setText("Salvar");
-        jMenu1.add(b_salvar);
-
-        b_salvarComo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        b_salvarComo.setText("Salvar como");
-        jMenu1.add(b_salvarComo);
 
         b_sair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
         b_sair.setText("Sair");
@@ -98,11 +100,93 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void b_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_novoActionPerformed
-        PainelCriarLista p = new PainelCriarLista(username, key, desktop);
+        PainelCriarLista p = new PainelCriarLista(username, key, this);
         desktop.add(p);
         p.setVisible(true);
     }//GEN-LAST:event_b_novoActionPerformed
 
+    private void b_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_abrirActionPerformed
+        File path;
+
+        JFileChooser f = new JFileChooser();
+        f.setFileFilter(new FileNameExtensionFilter("Arquivos de listData", "listdata"));
+
+        if (f.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            path = f.getSelectedFile();
+
+            String name = path.getName();
+
+            if (!name.substring(name.lastIndexOf(".")).equals(".listdata")) {
+                JOptionPane.showMessageDialog(this, "Extensão de arquivo invalida\nSelecione um arquivo \".listdata\"");
+            } else {
+                ListdataInterpreter arc = new ListdataInterpreter(path);
+                try {
+                    if (arc.header_isPublic()) {
+                        openList(path, 0);
+                    } else {
+                        if (new Cryp().cifre(username, key).equals(arc.header_getUser())) {
+                            openList(path, key);
+                        } else {
+                            if (JOptionPane.showConfirmDialog(this, "Esse arquivo é privado\nFaça login com o usuario que criou esse arquivo", "Arquivo Privado", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
+                                while (true) {
+                                    String p_user = JOptionPane.showInputDialog(this, "Digite o username");
+                                    String p_pass = JOptionPane.showInputDialog(this, "Digite a sua senha");
+
+                                    if (p_user.isEmpty() || p_pass.isEmpty()) {
+                                        JOptionPane.showMessageDialog(this, "Digite todos os campos", "Erro", JOptionPane.WARNING_MESSAGE);
+                                    } else {
+                                        int pKey = new Cryp().gerateVal(p_user, p_pass);
+                                        String c_user = new Cryp().cifre(p_user, pKey);
+                                        
+                                        if (c_user.equals(arc.header_getUser())) {
+                                            JOptionPane.showMessageDialog(this, "Arquivo acessado com sucesso");
+                                            openList(path, pKey);
+                                            break;
+                                        }
+                                        else {
+                                            JOptionPane.showMessageDialog(this, "Informações incoretas");
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, e.getMessage());
+                }
+            }
+        }
+
+
+    }//GEN-LAST:event_b_abrirActionPerformed
+
+    
+    @Override
+    public void openList(File path, int pkey) {
+        ListdataInterpreter arc = new ListdataInterpreter(path);
+        
+        try {
+            String type = arc.header_getType();
+            if (type.equals("FIFO")) {
+                PainelFifo a = new PainelFifo(path, key);
+                desktop.add(a);
+                a.setVisible(true);
+            }
+            else if (type.equals("LIFO")) {
+                
+            }
+            else if (type.equals(("LISTA"))) {
+                
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Tipo de lista invalida: "+type, "Tipo invalido", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    } 
     /**
      * @param args the command line arguments
      */
@@ -136,16 +220,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 new TelaPrincipal().setVisible(true);
             }
         });
-        
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem b_abrir;
     private javax.swing.JMenuItem b_novo;
     private javax.swing.JMenuItem b_sair;
-    private javax.swing.JMenuItem b_salvar;
-    private javax.swing.JMenuItem b_salvarComo;
     private javax.swing.JDesktopPane desktop;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;

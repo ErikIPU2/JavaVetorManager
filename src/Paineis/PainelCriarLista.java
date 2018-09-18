@@ -14,6 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import Interfaces.IopenInterface;
 
 /**
  *
@@ -26,13 +27,13 @@ public class PainelCriarLista extends javax.swing.JInternalFrame {
      */
     private String user;
     private int key = 0;
-    private JDesktopPane desktop;
+    private IopenInterface desktop;
 
     public PainelCriarLista() {
         initComponents();
     }
 
-    public PainelCriarLista(String user, int key, JDesktopPane desktop) {
+    public PainelCriarLista(String user, int key, IopenInterface desktop) {
         initComponents();
         this.user = user;
         this.key = key;
@@ -336,7 +337,7 @@ public class PainelCriarLista extends javax.swing.JInternalFrame {
                         }
 
                         if (JOptionPane.showConfirmDialog(this, "Deseja abrir o seu novo arquivo?", "Arquivo criado com sucesso", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
-
+                            desktop.openList(path, key);
                         }
 
                         dispose();

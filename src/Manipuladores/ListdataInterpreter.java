@@ -159,8 +159,8 @@ public class ListdataInterpreter {
 
         return new String[0];
     }
-    
-    public String[] getContent() throws Exception{
+
+    public String[] getContent() throws Exception {
 
         try {
             FileReader f = new FileReader(path);
@@ -184,25 +184,23 @@ public class ListdataInterpreter {
 
             ArrayList<String> prop = new ArrayList<>();
             int ll = 0;
-            
-            for (int i = 0; i < content.size(); i++) {                
+
+            for (int i = 0; i < content.size(); i++) {
                 if (i > c_start) {
                     String data = content.get(i);
-                    
+
                     if (!data.equals(START_CONTENT) && !data.equals(END_CONTENT)) {
                         prop.add(data);
                         ll++;
                     }
-                    
+
                     if (i == c_end) {
                         break;
                     }
                 }
             }
-            
-            return prop.toArray(new String[ll]);
-            
 
+            return prop.toArray(new String[ll]);
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ListdataInterpreter.class.getName()).log(Level.SEVERE, null, ex);
@@ -289,100 +287,152 @@ public class ListdataInterpreter {
 
         throw new Exception("Tag TYPE não encontrada");
     }
-    
-    private String content_getData(String tag) throws Exception {
+
+    private String content_getData(String tag, int key) throws Exception {
         int s = tag.lastIndexOf(START_DATA);
         int e = tag.lastIndexOf(END_DATA);
-        
+
         if (s == -1) {
             throw new Exception("Tag DATA não encontrada");
         }
         if (e == -1) {
             throw new Exception("Fim da Tag DATA não encontrada");
         }
-        
-        return tag.substring(s + START_DATA.length(), e);
+
+        return new Cryp().unCifre(tag.substring(s + START_DATA.length(), e), key);
     }
 
-    public String[] content_getDatas() throws Exception {
+    public String[] content_getDatas(int key) throws Exception {
         ArrayList<String> prop = new ArrayList<>();
         String[] contents = this.getContent();
-        
+
         for (int i = 0; i < contents.length; i++) {
             try {
-                prop.add(this.content_getData(contents[i]));
-            }
-            catch (Exception e) {
+                prop.add(this.content_getData(contents[i], key));
+            } catch (Exception e) {
                 System.out.println(e);
             }
         }
-        
+
         return prop.toArray(new String[prop.size()]);
     }
-    
-    private void set_contentData(String[] toSet) throws Exception {
+
+    private void set_contentData(String[] toSet, int key) throws Exception {
         BufferedReader reader = new BufferedReader(new FileReader(path));
-        
+
         ArrayList<String> arq = new ArrayList<>();
-        
-        while(reader.ready()) {
-            
+
+        while (reader.ready()) {
+
             String prop = reader.readLine();
-            
+
             if (!prop.equals(START_CONTENT)) {
                 arq.add(prop);
-            }
-            else {
+            } else {
                 arq.add(prop);
                 break;
             }
-            
+
         }
-        
+
+        Cryp cc = new Cryp();
+
         for (String el : toSet) {
-            arq.add("\t" + START_DATA + el + END_DATA);
+            arq.add("\t" + START_DATA + cc.cifre(el, key) + END_DATA);
         }
-        
+
         arq.add(END_CONTENT);
-        
-        
+
         StringBuilder storenewData = new StringBuilder();
-        
+
         for (String el : arq) {
             storenewData.append(el).append("\n");
         }
-        
+
         BufferedWriter writer = new BufferedWriter(new FileWriter(path, false));
-        
+
         writer.write(storenewData.toString());
         writer.close();
-        
+
     }
-    
-    public void add_contentData(String newEl) throws Exception {
+
+    public void addLast_contentData(String newEl, int key) throws Exception {
         ArrayList<String> contents = new ArrayList<>();
-        
-        for (String comp: this.content_getDatas()) {
+
+        for (String comp : this.content_getDatas(key)) {
             contents.add(comp);
         }
-        
+
         contents.add(newEl);
-        
-        this.set_contentData(contents.toArray(new String[contents.size()]));
+
+        this.set_contentData(contents.toArray(new String[contents.size()]), key);
     }
-    
-    public void add_contentData(String[] newEls) throws Exception {
+
+    public void addLast_contentData(String[] newEls, int key) throws Exception {
         ArrayList<String> contents = new ArrayList<>();
-        
-        for (String comp : this.content_getDatas()) {
+
+        for (String comp : this.content_getDatas(key)) {
             contents.add(comp);
         }
-        
+
         for (String comp : newEls) {
             contents.add(comp);
         }
-        
-        this.set_contentData(contents.toArray(new String[contents.size()]));
+
+        this.set_contentData(contents.toArray(new String[contents.size()]), key);
+    }
+
+    public void addFirst_contentData(String newEL, int key) throws Exception {
+        ArrayList<String> contents = new ArrayList<>();
+
+        contents.add(newEL);
+
+        for (String comp : this.content_getDatas(key)) {
+            contents.add(comp);
+        }
+
+        this.set_contentData(contents.toArray(new String[contents.size()]), key);
+    }
+
+    public void addFirst_contentData(String[] newEls, int key) throws Exception {
+        ArrayList<String> contents = new ArrayList<>();
+
+        for (String comp : newEls) {
+            contents.add(comp);
+        }
+
+        for (String comp : this.content_getDatas(key)) {
+            contents.add(comp);
+        }
+
+        this.set_contentData(contents.toArray(new String[contents.size()]), key);
+    }
+
+    public void remove_contentData(int index, int key) throws Exception {
+        try {
+            ArrayList<String> content = new ArrayList<>();
+
+            for (String comp : this.content_getDatas(key)) {
+                content.add(comp);
+            }
+
+            content.remove(index);
+
+            this.set_contentData(content.toArray(new String[content.size()]), key);
+        } catch (Exception e) {
+            throw new Exception("Não existem um elemento nessa posição");
+        }
+
+    }
+
+    public void removeLast_contentData(int key) throws Exception {
+        int size = this.content_getDatas(key).length;
+
+        remove_contentData(size - 1, key);
+    }
+
+    public void removeFirst_contentData(int key) throws Exception {
+        remove_contentData(0, key);
     }
 
 }

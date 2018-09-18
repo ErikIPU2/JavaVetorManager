@@ -18,9 +18,17 @@ public class testLL {
     public static void main(String[] args) {
         try {
             ListdataInterpreter p = new ListdataInterpreter(new File("test.listdata"));
-            for (String el: p.content_getDatas()) {
-                System.out.println(el);
+            
+            String[] b = {"a", "b", "c", "d"};
+            
+            p.addFirst_contentData(b, 10);
+            
+            
+            
+            for (String a : p.content_getDatas(10)) {
+                System.out.println(a);
             }
+            
         } catch (Exception ex) {
             Logger.getLogger(testLL.class.getName()).log(Level.SEVERE, null, ex);
         }
