@@ -16,6 +16,7 @@ import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import Interfaces.IopenInterface;
+import Paineis.PaineLifo;
 
 /**
  *
@@ -169,12 +170,14 @@ public class TelaPrincipal extends javax.swing.JFrame implements IopenInterface{
         try {
             String type = arc.header_getType();
             if (type.equals("FIFO")) {
-                PainelFifo a = new PainelFifo(path, key);
+                PainelFifo a = new PainelFifo(path, pkey);
                 desktop.add(a);
                 a.setVisible(true);
             }
             else if (type.equals("LIFO")) {
-                
+                PaineLifo a = new PaineLifo(path, pkey);
+                desktop.add(a);
+                a.setVisible(true);
             }
             else if (type.equals(("LISTA"))) {
                 

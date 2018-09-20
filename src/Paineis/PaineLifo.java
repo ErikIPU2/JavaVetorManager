@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author erik
  */
-public class PainelFifo extends javax.swing.JInternalFrame {
+public class PaineLifo extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form PainelFifo
@@ -24,11 +24,11 @@ public class PainelFifo extends javax.swing.JInternalFrame {
     private int key;
     private ListdataInterpreter intp;
 
-    public PainelFifo() {
+    public PaineLifo() {
         initComponents();
     }
 
-    public PainelFifo(File path, int key) {
+    public PaineLifo(File path, int key) {
         initComponents();
         this.path = path;
         this.key = key;

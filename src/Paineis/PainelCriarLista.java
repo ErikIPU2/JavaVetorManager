@@ -217,6 +217,8 @@ public class PainelCriarLista extends javax.swing.JInternalFrame {
         //tratamento de erros
         try {
 
+
+
             ArrayList<String> errorlog = new ArrayList<>();
 
             //adiciona os erros para serem mostrados depois
@@ -337,7 +339,7 @@ public class PainelCriarLista extends javax.swing.JInternalFrame {
                         }
 
                         if (JOptionPane.showConfirmDialog(this, "Deseja abrir o seu novo arquivo?", "Arquivo criado com sucesso", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
-                            desktop.openList(path, key);
+                            desktop.openList(path, (r_yes.isSelected()) ? 0:key);
                         }
 
                         dispose();
