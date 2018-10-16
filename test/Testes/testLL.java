@@ -19,14 +19,14 @@ public class testLL {
         try {
             ListdataInterpreter p = new ListdataInterpreter(new File("test.listdata"));
             
-            String[] b = {"a", "b", "c", "d"};
+            String[] bla = {"1", "43", "rew", "ME MATA"};
             
-            p.addFirst_contentData(b, 10);
+            p.add_contentData(bla, 10, 10);
             
+            String a[] = p.content_getDatas(10);
             
-            
-            for (String a : p.content_getDatas(10)) {
-                System.out.println(a);
+            for (String b : a) {
+                System.out.println(b);
             }
             
         } catch (Exception ex) {

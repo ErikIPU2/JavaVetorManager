@@ -5,6 +5,7 @@
  */
 package Paineis;
 
+import Interfaces.Ipaines;
 import Manipuladores.Cryp;
 import Manipuladores.ListdataInterpreter;
 import java.io.File;
@@ -15,7 +16,7 @@ import javax.swing.JOptionPane;
  *
  * @author erik
  */
-public class PainelFifo extends javax.swing.JInternalFrame {
+public class PainelFifo extends javax.swing.JInternalFrame implements Ipaines{
 
     /**
      * Creates new form PainelFifo

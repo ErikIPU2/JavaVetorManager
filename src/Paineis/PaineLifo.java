@@ -5,6 +5,7 @@
  */
 package Paineis;
 
+import Interfaces.Ipaines;
 import Manipuladores.Cryp;
 import Manipuladores.ListdataInterpreter;
 import java.io.File;
@@ -15,7 +16,7 @@ import javax.swing.JOptionPane;
  *
  * @author erik
  */
-public class PaineLifo extends javax.swing.JInternalFrame {
+public class PaineLifo extends javax.swing.JInternalFrame implements Ipaines {
 
     /**
      * Creates new form PainelFifo
@@ -155,7 +156,7 @@ public class PaineLifo extends javax.swing.JInternalFrame {
             if (many == 1) {
                 prop[0] = JOptionPane.showInputDialog(this, "Digite o valor do elemento a ser adicionado");
                 try {
-                    intp.addLast_contentData(prop[0], key);
+                    intp.addFirst_contentData(prop[0], key);
                 }
                 catch (Exception e) {
                     
@@ -166,7 +167,7 @@ public class PaineLifo extends javax.swing.JInternalFrame {
                 for (int i = 0; i < prop.length; i++) {
                     prop[i] = JOptionPane.showInputDialog(this, "Digite o valor do elemento a ser adiocionado");
                     try {
-                        intp.addLast_contentData(prop, key);
+                        intp.addFirst_contentData(prop, key);
                     }
                     catch (Exception e) {
                         

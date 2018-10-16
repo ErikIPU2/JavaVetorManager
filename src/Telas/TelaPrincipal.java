@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import Interfaces.IopenInterface;
 import Paineis.PaineLifo;
+import Paineis.PainelLista;
 
 /**
  *
@@ -180,7 +181,9 @@ public class TelaPrincipal extends javax.swing.JFrame implements IopenInterface{
                 a.setVisible(true);
             }
             else if (type.equals(("LISTA"))) {
-                
+                PainelLista a = new PainelLista(path, pkey);
+                desktop.add(a);
+                a.setVisible(true);
             }
             else {
                 JOptionPane.showMessageDialog(this, "Tipo de lista invalida: "+type, "Tipo invalido", JOptionPane.WARNING_MESSAGE);

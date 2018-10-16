@@ -355,6 +355,41 @@ public class ListdataInterpreter {
         writer.close();
 
     }
+    
+    public void add_contentData(String newEl, int index, int key) throws Exception{
+        try {
+            ArrayList<String> contents = new ArrayList<>();
+
+            for (String comp : this.content_getDatas(key)) {
+                contents.add(comp);
+            }
+
+            contents.add(index, newEl);
+
+            this.set_contentData(contents.toArray(new String[contents.size()]), key);
+        }catch (Exception e) {
+            throw new Exception("Posição inexistente");
+        }
+    }
+    
+    public void add_contentData(String newEl[], int index, int key) throws Exception {
+        try {
+            ArrayList<String> contents = new ArrayList<>();
+            
+            for (String comp : this.content_getDatas(key)) {
+                contents.add(comp);
+            }
+            
+            for (String el : newEl) {
+                contents.add(index, el);
+                index++;
+            }
+            
+            this.set_contentData(contents.toArray(new String[contents.size()]), key);
+        }catch (Exception e) {
+            throw new Exception("Posição inexistente");
+        }
+    }
 
     public void addLast_contentData(String newEl, int key) throws Exception {
         ArrayList<String> contents = new ArrayList<>();
