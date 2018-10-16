@@ -162,6 +162,50 @@ public class TelaDeLogin extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+         
+        if (args.length > 0) { 
+            for (int i = 0; i < args.length; i++) {
+                
+                if (args[i].equals("-k") || args[i].equals("--keyGerate")) {
+                    try {
+                        System.out.println("Key: " + new Cryp().gerateVal(args[i+1], args[i+2]));
+                    } catch (Exception e) {
+                        System.out.println("Você precisa passar 2 parametros:\nExemplo: .. -k {{user}} {{password}}");
+                    }
+                    i += 2;
+                }
+                
+                else if (args[i].equals("-c") || args[i].equals("--cifre")) {
+                    try {
+                        System.out.println("Msg: " + new Cryp().cifre(args[i+1], Integer.parseInt(args[i+2])));
+                    }
+                    catch (NumberFormatException e) {
+                        System.out.println("O segundo parametro deve ser um numero inteiro");
+                    }
+                    catch (Exception e) {
+                        System.out.println("Você precisa passar 2 parametros:\nExemplo: .. -c {{Mensagem}} {{Chave}}");
+                    }
+                    i += 2;
+                }
+                
+                else if (args[i].equals("-d") || args[i].equals("--decifre")) {
+                    
+                    try {
+                        System.out.println("Msg: " + new Cryp().unCifre(args[i+1], Integer.parseInt(args[i+2])));
+                    }
+                    catch (NumberFormatException e) {
+                        System.out.println("O segundo parametro deve ser um numero inteiro");
+                    }
+                    catch (Exception e) {
+                        System.out.println("Você precisa passar 2 parametros:\nExemplo: .. -c {{Mensagem}} {{Chave}}");
+                    }
+                    i += 2;
+                    
+                }
+            }
+            System.exit(NORMAL);
+        }
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
