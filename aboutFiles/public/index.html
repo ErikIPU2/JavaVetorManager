@@ -16,6 +16,21 @@
 		main {
 			flex: 1 0 auto;
 		}
+
+		header,
+		main,
+		footer {
+			padding-left: 300px;
+		}
+
+		@media only screen and (max-width : 992px) {
+
+			header,
+			main,
+			footer {
+				padding-left: 0;
+			}
+		}
 	</style>
 </head>
 
@@ -27,10 +42,15 @@
 				<a href="#" class="brand-logo">Sobre</a>
 			</div>
 		</nav>
+
+		<ul id="slide-out" class="sidenav sidenav-fixed">
+			<li><span>dasdasd</span></li>
+		</ul>
+
 	</header>
 
 	<main>
-
+		
 	</main>
 
 	<footer class="page-footer grey darken-4">
@@ -43,7 +63,16 @@
 	</footer>
 
 
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$(".sidenav").sidenav({
+
+			});
+			$(".sidenav").sidenav('open');
+		})
+	</script>
 </body>
 
 </html>

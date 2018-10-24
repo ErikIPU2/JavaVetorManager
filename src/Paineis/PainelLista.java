@@ -9,6 +9,8 @@ import Interfaces.Ipaines;
 import Manipuladores.Cryp;
 import java.io.File;
 import Manipuladores.ListdataInterpreter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -85,6 +87,7 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
+        setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
@@ -100,6 +103,11 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
         });
 
         b_remove.setText("Remover");
+        b_remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_removeActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Ordenação");
         jMenuBar1.add(jMenu1);
@@ -136,8 +144,82 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
     }// </editor-fold>//GEN-END:initComponents
 
     private void b_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_addActionPerformed
-        
+        try {
+            
+            if (this.intp.content_getDatas(this.key).length == 0) {
+                
+                int quant = Integer.parseInt(JOptionPane.showInputDialog("Digite quantos elementos vão ser adicionados"));
+                
+                String[] prop = new String[quant];
+                
+                for (int i = 0; i < quant; i++) {
+                    prop[i] = JOptionPane.showInputDialog("Digite o valor do elemento a ser adicionado");
+                }
+                
+                this.intp.addFirst_contentData(prop, key);
+                
+                this.renderTable();
+                
+            }
+            
+            else {
+                
+                int quant = Integer.parseInt(JOptionPane.showInputDialog("Digite quantos elementos vão ser adicionados"));
+                
+                int index = Integer.parseInt(JOptionPane.showInputDialog("Digite em qual posição deseja adicionar o elemento\nPosição minima : 0\nPosição maxima : " + intp.content_getDatas(key).length));
+                
+                String[] prop = new String[quant];
+                
+                for (int i = 0; i < quant; i++) {
+                    prop[i] = JOptionPane.showInputDialog("Digite o valor do elemento a ser adicionado");
+                }
+                
+                this.intp.add_contentData(prop, index, key);
+                
+                this.renderTable();
+                
+            }
+            
+            
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Digite um numero inteiro");
+        }
     }//GEN-LAST:event_b_addActionPerformed
+
+    private void b_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_removeActionPerformed
+        try {
+            if (this.intp.content_getDatas(key).length == 0) {
+                JOptionPane.showMessageDialog(this, "Não existem elementos para serem removidos");
+            }
+            else {                
+                int index = Integer.parseInt(JOptionPane.showInputDialog("Digite em qual posição deseja adicionar o elemento\nPosição minima : 0\nPosição maxima : " + (intp.content_getDatas(key).length-1)));
+                
+                if (index > intp.content_getDatas(key).length-1 || index < 0) {
+                    JOptionPane.showMessageDialog(this, "Voce esta tentanto remover elementos em uma posição invalida\nDigite uma posição valida");
+                }
+                
+                else {
+                    int quant = Integer.parseInt(JOptionPane.showInputDialog(this, "Digite a quantidade de elementos a serem removidos\nMax: " + (this.intp.content_getDatas(key).length - index)));
+                
+                    if (quant > this.intp.content_getDatas(key).length - index) {
+                        JOptionPane.showMessageDialog(this, "Voce esta tentando remover mais elementos do que realmente existem\nDigite um numero menor");
+                    }
+                    else {
+
+                        for (int i = 0; i < quant; i++) {
+                          intp.remove_contentData(index, key);
+                        }
+
+                        renderTable();
+                    }
+                }
+                
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Digite um numero inteiro");
+        }
+    }//GEN-LAST:event_b_removeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

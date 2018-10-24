@@ -42,9 +42,28 @@ public class ListdataInterpreter {
 
     private final String START_DATA = "&DATA&";
     private final String END_DATA = "$DATA$";
+    
+    /**
+     * Bubble sort
+     */
+    public final int BUBBLE_SORT = 0;
+    
+    /**
+     * Selection sort
+     */
+    public final int SELECTION_SORT = 1;
+    
+    /**
+     * Merge sort
+     */
+    public final int MERGE_SORT = 2;
 
     private File path;
-
+    
+    /**
+     * Verifica a existencia do arquivo a ser interpretado, caso ele não exita o cria
+     * @param path Arquivo
+     */
     public ListdataInterpreter(File path) {
         this.path = path;
         if (!this.path.exists()) {
@@ -97,17 +116,33 @@ public class ListdataInterpreter {
 
     }
 
-    //cria um cabeçalho criptogradado
+    /**
+     * Cria um cabeçalho criptografado
+     * @param author Autor
+     * @param name Nome do arquivo
+     * @param type Typo da lista
+     * @param key Chave de criptografia
+     */
     public void writeHeader(String author, String name, String type, int key) {
         this.writeHeader(author, name, false, type, key);
     }
 
     //cria um cabeçalho publico: key = 0
+    /**
+     * Cria um cabeçalho sem criptografia
+     * @param author Autor
+     * @param name Nome do arquivo
+     * @param type Tipo da lista
+     */
     public void writeHeader(String author, String name, String type) {
         this.writeHeader(author, name, true, type, 0);
     }
 
-    //retorna um vetor com todo o conteudo cru da header
+    /**
+     * Retorna um vetor com o conteudo do cabeçalho bruto
+     * @return String[] - Vetor do conteudo do cabeçalho
+     * @throws Exception Inicio ou fim do cabeçalho não encontrado
+     */
     public String[] getHeader() throws Exception {
 
         try {
@@ -159,7 +194,12 @@ public class ListdataInterpreter {
 
         return new String[0];
     }
-
+    
+    /**
+     * Retorna um vetor com o conteudo dos dados bruto
+     * @return String[] - Vetor do conteudo de dados
+     * @throws Exception Inicio ou fim do conteudo não encontrado
+     */
     public String[] getContent() throws Exception {
 
         try {
@@ -210,7 +250,12 @@ public class ListdataInterpreter {
 
         return new String[0];
     }
-
+    
+    /**
+     * Retorna o campo de usuario do header
+     * @return String - Usuario
+     * @throws Exception Inicio ou fim da tag USER não encontrada
+     */
     public String header_getUser() throws Exception {
         String[] content = this.getHeader();
         String prop = "";
@@ -230,7 +275,12 @@ public class ListdataInterpreter {
 
         throw new Exception("Tag USER não encontrada");
     }
-
+    
+    /**
+     * Retorna o campo de nome do arquivo do header
+     * @return String - Nome do arquivo
+     * @throws Exception Inicio ou fim da tag NAME não encontrada
+     */
     public String header_getFileName() throws Exception {
         String[] content = this.getHeader();
 
@@ -249,7 +299,12 @@ public class ListdataInterpreter {
 
         throw new Exception("Tag NAME não encontrada");
     }
-
+    
+    /**
+     * Retorna se o arquivo é publico ou não
+     * @return boolean - verificabilidade da publicidade do arquivo
+     * @throws Exception Inicio ou fim da tag PUBLIC não encontrada
+     */
     public boolean header_isPublic() throws Exception {
         String[] content = this.getHeader();
 
@@ -268,7 +323,12 @@ public class ListdataInterpreter {
 
         throw new Exception("Tag PUBLIC não encontrada");
     }
-
+    
+    /**
+     * Retorna o tipo da lista do arquivo do header
+     * @return String - Tipo da lista
+     * @throws Exception Inicio ou fim da tag PUBLIC não encontrada
+     */
     public String header_getType() throws Exception {
         String[] content = this.getHeader();
 
@@ -301,7 +361,13 @@ public class ListdataInterpreter {
 
         return new Cryp().unCifre(tag.substring(s + START_DATA.length(), e), key);
     }
-
+    
+    /**
+     * Retorna um vetor com todo o conteudo da tag CONTENT
+     * @param key Chave de cifragem
+     * @return String[] - Dados contidos na tag CONTENT
+     * @throws Exception Fim ou Inicio da tag DATA não encontrada
+     */
     public String[] content_getDatas(int key) throws Exception {
         ArrayList<String> prop = new ArrayList<>();
         String[] contents = this.getContent();
@@ -356,6 +422,13 @@ public class ListdataInterpreter {
 
     }
     
+    /**
+     * Adiciona uma String aos dados em uma posição especifica
+     * @param newEl Novo dado a ser adicionado
+     * @param index Posição ao ser adicionado
+     * @param key Chave de cifragem
+     * @throws Exception Posição inexistente
+     */
     public void add_contentData(String newEl, int index, int key) throws Exception{
         try {
             ArrayList<String> contents = new ArrayList<>();
@@ -372,6 +445,13 @@ public class ListdataInterpreter {
         }
     }
     
+    /**
+     * Adiciona varias Strings aos dados em uma posição especifica
+     * @param newEl Vetor de novos elementos
+     * @param index Posição ao ser adicionados
+     * @param key Chave de cifragem
+     * @throws Exception Posição inexistente
+     */
     public void add_contentData(String newEl[], int index, int key) throws Exception {
         try {
             ArrayList<String> contents = new ArrayList<>();
@@ -390,7 +470,14 @@ public class ListdataInterpreter {
             throw new Exception("Posição inexistente");
         }
     }
-
+    
+    
+    /**
+     * Adiciona uma String na ultima posição dos dados
+     * @param newEl Elemento a ser adicionado
+     * @param key Chave de cifragem
+     * @throws Exception 
+     */
     public void addLast_contentData(String newEl, int key) throws Exception {
         ArrayList<String> contents = new ArrayList<>();
 
@@ -402,7 +489,13 @@ public class ListdataInterpreter {
 
         this.set_contentData(contents.toArray(new String[contents.size()]), key);
     }
-
+    
+    /**
+     * Adiciona Varias Strings na ultima posição dos dados
+     * @param newEls Elementos a serem adicionados
+     * @param key Chave de cifragem
+     * @throws Exception 
+     */
     public void addLast_contentData(String[] newEls, int key) throws Exception {
         ArrayList<String> contents = new ArrayList<>();
 
@@ -416,7 +509,13 @@ public class ListdataInterpreter {
 
         this.set_contentData(contents.toArray(new String[contents.size()]), key);
     }
-
+    
+    /**
+     * Adiciona uma String na primeira posição dos dados
+     * @param newEL Elemento a ser adicionado
+     * @param key Chave de cifragem
+     * @throws Exception 
+     */
     public void addFirst_contentData(String newEL, int key) throws Exception {
         ArrayList<String> contents = new ArrayList<>();
 
@@ -429,6 +528,13 @@ public class ListdataInterpreter {
         this.set_contentData(contents.toArray(new String[contents.size()]), key);
     }
 
+    
+    /**
+     * Adiciona Varias Strings na primeira posição dos dados
+     * @param newEls Elemento a ser adicionado
+     * @param key Chave de cifragem
+     * @throws Exception 
+     */
     public void addFirst_contentData(String[] newEls, int key) throws Exception {
         ArrayList<String> contents = new ArrayList<>();
 
@@ -442,7 +548,13 @@ public class ListdataInterpreter {
 
         this.set_contentData(contents.toArray(new String[contents.size()]), key);
     }
-
+    
+    /**
+     * Remove um item em determinada posição dos dados
+     * @param index Posição do item a ser removido
+     * @param key Chave de cifragem
+     * @throws Exception Não existe um elemento nessa posição
+     */
     public void remove_contentData(int index, int key) throws Exception {
         try {
             ArrayList<String> content = new ArrayList<>();
@@ -455,19 +567,53 @@ public class ListdataInterpreter {
 
             this.set_contentData(content.toArray(new String[content.size()]), key);
         } catch (Exception e) {
-            throw new Exception("Não existem um elemento nessa posição");
+            throw new Exception("Não existe um elemento nessa posição");
         }
 
     }
-
+    
+    /**
+     * Remove um item na ultima posição dos dados
+     * @param key Chave de cifragem
+     * @throws Exception 
+     */
     public void removeLast_contentData(int key) throws Exception {
         int size = this.content_getDatas(key).length;
 
         remove_contentData(size - 1, key);
     }
-
+    
+    /**
+     * Remove um item na primeira posição dos dados
+     * @param key Chave de cifragem
+     * @throws Exception 
+     */
     public void removeFirst_contentData(int key) throws Exception {
         remove_contentData(0, key);
+    }
+    
+    public void sort(int method) throws Exception{
+        switch (method) {
+            
+            //bubble sort
+            case 0:
+                
+            break;
+            
+            //selection sort
+            case 1:
+                
+            break;
+            
+            //merge sort
+            case 2:
+                
+            break;
+            
+            default:
+                throw new Exception("Metodo de ordenação não encontrado");            
+        }
+        
     }
 
 }

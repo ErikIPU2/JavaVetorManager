@@ -24,20 +24,31 @@ import java.util.logging.Logger;
 public class UserManer {
     
     private File user;
-
+    
+    /**
+     * 
+     * @param user
+     * @param passwords 
+     */
     public UserManer(File user, File passwords) {
         this.user = user;
         
         ifNotExist_Create(user);
     }
-
+    
+    /**
+     * Verifica a existencia do arquivo que armazena os nomes de usuarios
+     */
     public UserManer() {
-        this.user = new File("data/users.user");
+        this.user = new File("users.user");
         
         ifNotExist_Create(user);
     }
    
-    //verifica a existencia do arquivo, caso não exista, o cria
+    /**
+     * Verifica a existencia do arquivo passado como parametro, se não existe o cria
+     * @param file Arquivo a ser verificado
+     */
     private void ifNotExist_Create(File file) {
         if (!file.exists()) {
             try {
@@ -53,7 +64,11 @@ public class UserManer {
     }
     
     
-    //cadastra um novo nome
+    /**
+     * Cadastra um novo usuario
+     * @param name Nome do usuario
+     * @return boolean - Sucesso ao ser criado
+     */
     public boolean newUser(String name) {
         try {
             FileWriter fl = new FileWriter(user, true);
@@ -73,6 +88,10 @@ public class UserManer {
     }
     
     //retorna um vetor com todos os usuarios
+    /**
+     * Retorna um vetor com todos os nomes de usuarios
+     * @return String[] - Nomes de usuarios
+     */
     public String[] getUsers() {
         try {
             FileReader f = new FileReader(user);
@@ -94,11 +113,21 @@ public class UserManer {
         }   
     }
     
+    /**
+     * Retorna o usuario da linha especifica
+     * @param index Posição 
+     * @return String - Usuario da linha especifica
+     */
     public String getUsers(int index) {
         String[] users = this.getUsers();
         return users[index];
     }
     
+    /**
+     * Verifica a existencia de um usuario
+     * @param name Nome de usuario a ser verificado
+     * @return boolean - Condição de existencia
+     */
     public boolean veryExistentUser(String name) {
         String[] user = this.getUsers();
         
@@ -112,8 +141,12 @@ public class UserManer {
         
     }
     
+    /**
+     * Pega a posição de um nome de usuario
+     * @param name
+     * @return int - Retorna o indice do usuario, se não existir retorna -1
+     */
     public int getUserIndex(String name) {
-        int index = -1;
         if (this.veryExistentUser(name)) {
             String[] users = this.getUsers();
             

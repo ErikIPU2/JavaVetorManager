@@ -6,7 +6,11 @@
 package Telas;
 
 import Manipuladores.Cryp;
+import Manipuladores.ListdataInterpreter;
 import Manipuladores.UserManer;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -163,47 +167,158 @@ public class TelaDeLogin extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
          
-        if (args.length > 0) { 
+        if (args.length > 0) {
+            boolean omite = false;
+            boolean posExecute = false;
             for (int i = 0; i < args.length; i++) {
                 
-                if (args[i].equals("-k") || args[i].equals("--keyGerate")) {
-                    try {
-                        System.out.println("Key: " + new Cryp().gerateVal(args[i+1], args[i+2]));
-                    } catch (Exception e) {
-                        System.out.println("Você precisa passar 2 parametros:\nExemplo: .. -k {{user}} {{password}}");
-                    }
-                    i += 2;
-                }
-                
-                else if (args[i].equals("-c") || args[i].equals("--cifre")) {
-                    try {
-                        System.out.println("Msg: " + new Cryp().cifre(args[i+1], Integer.parseInt(args[i+2])));
-                    }
-                    catch (NumberFormatException e) {
-                        System.out.println("O segundo parametro deve ser um numero inteiro");
-                    }
-                    catch (Exception e) {
-                        System.out.println("Você precisa passar 2 parametros:\nExemplo: .. -c {{Mensagem}} {{Chave}}");
-                    }
-                    i += 2;
-                }
-                
-                else if (args[i].equals("-d") || args[i].equals("--decifre")) {
+                switch (args[i]) {
                     
-                    try {
-                        System.out.println("Msg: " + new Cryp().unCifre(args[i+1], Integer.parseInt(args[i+2])));
-                    }
-                    catch (NumberFormatException e) {
-                        System.out.println("O segundo parametro deve ser um numero inteiro");
-                    }
-                    catch (Exception e) {
-                        System.out.println("Você precisa passar 2 parametros:\nExemplo: .. -c {{Mensagem}} {{Chave}}");
-                    }
-                    i += 2;
+                    case "-help":
+                    case "--help":
+                        
+                    break;
                     
+                    case "-o":
+                    case "--omite":
+                        omite = !omite;
+                    break;
+                    
+                    case "-e":
+                    case "--execute":
+                        posExecute = true;
+                    break; 
+                        
+                    case "-k":
+                    case "--keyGerate":
+                        try {
+                            if (omite) {
+                                System.out.println(new Cryp().gerateVal(args[i+1], args[i+2]));
+                            }
+                            else {
+                                System.out.println("Key: " + new Cryp().gerateVal(args[i+1], args[i+2]));
+                            }
+                        } catch (Exception e) {
+                            System.out.println("Você precisa passar 2 parametros:\n"
+                                    + "Exemplo: .. -k {{user}} {{password}}");
+                        }   i += 2;
+                    break;
+                        
+                    case "-c":
+                    case "--cifre":
+                        try {
+                            if (omite) {
+                                System.out.println(new Cryp().cifre(args[i+1], Integer.parseInt(args[i+2])));
+                            }
+                            else {
+                                System.out.println("Msg: " + new Cryp().cifre(args[i+1], Integer.parseInt(args[i+2])));
+                            }
+                        }
+                        catch (NumberFormatException e) {
+                            System.out.println("O segundo parametro deve ser um numero inteiro");
+                        }
+                        catch (Exception e) {
+                            System.out.println("Você precisa passar 2 parametros:\n"
+                                    + "Exemplo: .. -c {{Mensagem}} {{Chave}}");
+                        }   i += 2;
+                    break;
+                        
+                    case "-d":
+                    case "--decifre":
+                        try {
+                            if (omite) {
+                                System.out.println(new Cryp().unCifre(args[i+1], Integer.parseInt(args[i+2])));
+                            }
+                            else {
+                                System.out.println("Msg: " + new Cryp().unCifre(args[i+1], Integer.parseInt(args[i+2])));
+                            }
+                        }
+                        catch (NumberFormatException e) {
+                            System.out.println("O segundo parametro deve ser um numero inteiro");
+                        }
+                        catch (Exception e) {
+                            System.out.println("Você precisa passar 2 parametros:\n"
+                                    + "Exemplo: .. -c {{Mensagem}} {{Chave}}");
+                        }   i += 2;
+                    break;
+                    
+                    
+                    case "-h":
+                    case "--headerGet":
+                        
+                        try {
+ 
+                            int key = Integer.parseInt(args[i + 2]);
+                            File path = new File(args[i + 1]);
+                            
+                            ListdataInterpreter intp = new ListdataInterpreter(path);
+                            Cryp cryp = new Cryp();
+                            
+                            if (omite) {
+                                System.out.println(cryp.unCifre(intp.header_getUser(), key));
+                                System.out.println(intp.header_getFileName());
+                                System.out.println(intp.header_isPublic());
+                                System.out.println(intp.header_getType());
+                            }
+                            else {
+                                System.out.printf("Usuario: %s\n", cryp.unCifre(intp.header_getUser(), key));
+                                System.out.printf("Nome do arquivo: %s\n", intp.header_getFileName());
+                                System.out.printf("Arquivo publico: %b\n", intp.header_isPublic());
+                                System.out.printf("Tipo da lista: %s\n", intp.header_getType());
+                            }
+                            
+                            i += 2;
+                        }
+                        
+                        catch(ArrayIndexOutOfBoundsException e) {
+                            try {
+                                ListdataInterpreter intp = new ListdataInterpreter(new File(args[i + 1]));
+                                if (omite) {
+                                    System.out.println(intp.header_getUser());
+                                    System.out.println(intp.header_getFileName());
+                                    System.out.println(intp.header_isPublic());
+                                    System.out.println(intp.header_getType());
+                                }
+                                else {
+                                    System.out.printf("Usuario: %s\n", intp.header_getUser());
+                                    System.out.printf("Nome do arquivo: %s\n", intp.header_getFileName());
+                                    System.out.printf("Arquivo publico: %b\n", intp.header_isPublic());
+                                    System.out.printf("Tipo da lista: %s\n", intp.header_getType());
+                                }
+                            }
+                            catch (ArrayIndexOutOfBoundsException ee) {
+                                System.out.println("Você precisa passar 1 ou 2 parametros:\n"
+                                        + "Exemplo: .. -k {{Arquivo}} [[Chave de cifragem]]");
+                            }
+                            catch (Exception ee) {
+                                System.out.println(ee);
+                            }
+                            i += 1;
+                            
+                            
+                        }
+                        
+                        catch(NumberFormatException e) {
+                            System.out.println("O segundo parametro deve ser um numero inteiro");
+                            i += 2;
+                        }
+                        catch(Exception e) {
+                            System.out.println(e);
+                            i += 2;
+                        }
+                        
+                    break;
+     
+                    
+                    
+                    default:
+                        System.out.println("Comando : \"" + args[i] + "\" Não encontrado");
+                    break;
                 }
             }
-            System.exit(NORMAL);
+            if (!posExecute) {
+                System.exit(NORMAL);
+            }
         }
         
         /* Set the Nimbus look and feel */

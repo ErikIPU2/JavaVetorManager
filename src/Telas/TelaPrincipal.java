@@ -186,7 +186,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements IopenInterface{
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         if (Desktop.isDesktopSupported()) {
             try {
-                Desktop.getDesktop().browse(new URI("https://google.com.br"));
+                Desktop.getDesktop().browse(new URI("http://desciclopedia.org/wiki/Programa%C3%A7%C3%A3o_Orientada_a_Gambiarras"));
             } catch (URISyntaxException ex) {
                 Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -232,7 +232,8 @@ public class TelaPrincipal extends javax.swing.JFrame implements IopenInterface{
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) {        
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
