@@ -86,6 +86,10 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
         b_remove = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        s_bubble = new javax.swing.JMenuItem();
+        s_selection = new javax.swing.JMenuItem();
+        s_merge = new javax.swing.JMenuItem();
+        s_quick = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -110,6 +114,39 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
         });
 
         jMenu1.setText("Ordenação");
+
+        s_bubble.setText("Bubble Sort");
+        s_bubble.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s_bubbleActionPerformed(evt);
+            }
+        });
+        jMenu1.add(s_bubble);
+
+        s_selection.setText("Selection Sort");
+        s_selection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s_selectionActionPerformed(evt);
+            }
+        });
+        jMenu1.add(s_selection);
+
+        s_merge.setText("Merge Sort");
+        s_merge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s_mergeActionPerformed(evt);
+            }
+        });
+        jMenu1.add(s_merge);
+
+        s_quick.setText("Quick Sort");
+        s_quick.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s_quickActionPerformed(evt);
+            }
+        });
+        jMenu1.add(s_quick);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -121,7 +158,7 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(b_add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -132,7 +169,7 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(b_add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -221,6 +258,40 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
         }
     }//GEN-LAST:event_b_removeActionPerformed
 
+    private void s_bubbleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_bubbleActionPerformed
+        try {
+            
+            this.intp.sort(this.intp.BUBBLE_SORT, this.key);
+            this.renderTable();
+            
+        } catch (Exception ex) {
+            
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+            
+        }
+    }//GEN-LAST:event_s_bubbleActionPerformed
+
+    private void s_selectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_selectionActionPerformed
+        
+        try {
+            
+            this.intp.sort(this.intp.SELECTION_SORT, this.key);
+            this.renderTable();
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());        
+        }
+    }//GEN-LAST:event_s_selectionActionPerformed
+
+    private void s_quickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_quickActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_s_quickActionPerformed
+
+    private void s_mergeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_mergeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_s_mergeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_add;
@@ -228,6 +299,10 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem s_bubble;
+    private javax.swing.JMenuItem s_merge;
+    private javax.swing.JMenuItem s_quick;
+    private javax.swing.JMenuItem s_selection;
     private javax.swing.JList<String> viewList;
     // End of variables declaration//GEN-END:variables
 }

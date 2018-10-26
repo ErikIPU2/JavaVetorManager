@@ -57,6 +57,11 @@ public class ListdataInterpreter {
      * Merge sort
      */
     public final int MERGE_SORT = 2;
+    
+    /**
+     * Quick sort
+     */
+    public final int QUICK_SORT = 3;
 
     private File path;
     
@@ -592,27 +597,57 @@ public class ListdataInterpreter {
         remove_contentData(0, key);
     }
     
-    public void sort(int method) throws Exception{
-        switch (method) {
-            
-            //bubble sort
-            case 0:
+    public void sort(int method, int key) throws Exception{
+        
+        //bubble sort
+        if (method == 0) {
+            String[] content = this.content_getDatas(key);
+            String temp;
                 
-            break;
-            
-            //selection sort
-            case 1:
+            for (int i = 0; i < content.length - 1; i++) {
+                for (int j  = 0; j < content.length - i - 1; j++) {
+                    if (content[j+1].compareTo(content[j]) < 0) {
+                        temp = content[j];
+                        content[j] = content[j + 1];
+                        content[j + 1] = temp;
+                    }
+                }
+            }
                 
-            break;
-            
-            //merge sort
-            case 2:
-                
-            break;
-            
-            default:
-                throw new Exception("Metodo de ordenação não encontrado");            
+            this.set_contentData(content, key);
         }
+        
+        //selection sort
+        else if (method == 1) {
+            String[] content = this.content_getDatas(key);
+            
+            for (int i = 0; i < content.length - 1; i++) {
+                for (int j = i + 1; j < content.length; j++) {
+                    if (content[i].compareTo(content[j]) > 0) {
+                        String temp = content[j];
+                        content[j] = content[i];
+                        content[i] = temp;
+                    }
+                }
+            }
+            
+            this.set_contentData(content, key);
+        }
+        
+        //merge sort
+        else if (method == 2) {
+            
+        }
+        
+        //quick sort
+        else if (method == 3) {
+            
+        }
+        
+        else {
+            throw new Exception("Metodo de ordenação não encontrado");
+        }
+        
         
     }
 
