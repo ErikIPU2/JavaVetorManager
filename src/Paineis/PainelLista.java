@@ -100,6 +100,7 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
         jScrollPane1.setViewportView(viewList);
 
         b_add.setText("Adicionar");
+        b_add.setToolTipText("Adiciona um elemento em alguma posição");
         b_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_addActionPerformed(evt);
@@ -107,6 +108,7 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
         });
 
         b_remove.setText("Remover");
+        b_remove.setToolTipText("Remove algum elemento de certa posição");
         b_remove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_removeActionPerformed(evt);
@@ -261,11 +263,11 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
     private void s_bubbleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_bubbleActionPerformed
         try {
             
-            this.intp.sort(this.intp.BUBBLE_SORT, this.key);
+            long time = this.intp.sort(this.intp.BUBBLE_SORT, this.key);
             this.renderTable();
+            JOptionPane.showMessageDialog(this, "Ordenação efetuada com sucesso\nTempo: "+time+" ms");
             
         } catch (Exception ex) {
-            
             
             JOptionPane.showMessageDialog(this, ex.getMessage());
             
@@ -276,8 +278,10 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
         
         try {
             
-            this.intp.sort(this.intp.SELECTION_SORT, this.key);
+            long time = this.intp.sort(this.intp.SELECTION_SORT, this.key);
             this.renderTable();
+            JOptionPane.showMessageDialog(this, "Ordenação efetuada com sucesso\nTempo: "+time+" ms");
+
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());        
@@ -285,11 +289,31 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
     }//GEN-LAST:event_s_selectionActionPerformed
 
     private void s_quickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_quickActionPerformed
-        // TODO add your handling code here:
+        try {
+            
+            long time = this.intp.sort(this.intp.QUICK_SORT, this.key);
+            this.renderTable();
+            JOptionPane.showMessageDialog(this, "Ordenação efetuada com sucesso\nTempo: "+time+" ms");
+
+            
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+        
     }//GEN-LAST:event_s_quickActionPerformed
 
     private void s_mergeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_mergeActionPerformed
-        // TODO add your handling code here:
+        try {
+            
+            long time = this.intp.sort(this.intp.MERGE_SORT, this.key);
+            this.renderTable();
+            
+            JOptionPane.showMessageDialog(this, "Ordenação efetuada com sucesso\nTempo: " +time+ " ms");
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }//GEN-LAST:event_s_mergeActionPerformed
 
 

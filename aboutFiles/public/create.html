@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sobre - UmasFilasAi: Criando seus propios arquivos</title>
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+
+        header,
+        main,
+        footer {
+            padding-left: 300px;
+        }
+
+        @media only screen and (max-width : 992px) {
+
+            header,
+            main,
+            footer {
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class=" grey darken-4">
+            <div class="nav-wrapper">
+                <a href="index.html" class="brand-logo">Sobre</a>
+            </div>
+        </nav>
+
+        <ul id="slide-out" class="sidenav sidenav-fixed">
+            <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+
+                    <li>
+                        <a class="collapsible-header">Como usar</a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="use.html#criandoConta">Criando uma conta</a></li>
+                                <li><a href="use.html#entrando">Entrando</a></li>
+                                <li><a href="use.html#criandonovalista">Criando uma nova lista</a></li>
+                                <li><a href="use.html#usando">Usando e manipulando os dados</a></li>
+                                <li><a href="use.html#privado">Arquivos privados</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a class="collapsible-header">Criando seus propios arquivos</a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="create.html#introducao">Introdução</a></li>
+                                <li><a href="create.html#ester">Estrutura e Regras</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a class="collapsible-header" href="javadoc/index.html">Documentação</a>
+                    </li>
+
+                    <li>
+                        <a class="collapsible-header">Comandos de terminal</a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="term.html#introducao">Introdução</a></li>
+                                <li><a href="term.html#comandos">Comandos</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+
+
+                </ul>
+            </li>
+        </ul>
+
+    </header>
+
+    <main>
+
+        <div class="container">
+            <h1 id="introducao" class="center-align">Introdução:</h1>
+            <br>
+            <br>
+            <p>É usada uma pequena linguagem de marcação criada por mim mesmo chamada: listdata. <br>
+                O interpretador atual coompreende um total de 7 tags, sendo duas delas tags de acoplamento, e o resto
+                são tags de conteudo. <br>
+                Todas as Tags são declaradas com &{nome da tag}&, e devem ser fechadas com ${nome da tag}$, exemplo:
+                &DATA&Conteudo$DATA$
+            </p>
+            <div class="divider"></div>
+            <div class="row">
+                <div class="col s6">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tag</th>
+                                <th>Função</th>
+                                <th>Tipo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>HEADER</th>
+                                <th>Engloba todas as meta tags usado internamente pelo programa</th>
+                                <th>Acoplamento</th>
+                            </tr>
+                            <tr>
+                                <th>CONTENT</th>
+                                <th>Engloba todos os dados visualizados e manipulados</th>
+                                <th>Acoplamento</th>
+                            </tr>
+                            <tr>
+                                <th>USER</th>
+                                <th>Autor do arquivo</th>
+                                <th>Conteudo</th>
+                            </tr>
+                            <tr>
+                                <th>NAME</th>
+                                <th>Nome do arquivo</th>
+                                <th>Conteudo</th>
+                            </tr>
+                            <tr>
+                                <th>PUBLIC</th>
+                                <th>Diz se o arquivo é publico ou não. Recebe apenas valores booleanos (true ou false).<br>Use
+                                    apenas false se os seus dados forem cifrados, você pode fazer a cifragem manual
+                                    usando os comandos de terminal</th>
+                                <th>Conteudo</th>
+                            </tr>
+                            <tr>
+                                <th>TYPE</th>
+                                <th>Diz qual é a estrutura de dado do arquivo.<br>Tipos disponiveis: FIFO, LIFO, LISTA</th>
+                                <th>Conteudo</th>
+                            </tr>
+                            <tr>
+                                <th>DATA</th>
+                                <th>É onde irá ficar um dado da lista</th>
+                                <th>Conteudo</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col s6">
+                    <h6 class="center-align">Exemplo:</h6>
+                    <div class="divider"></div>
+                    <br>
+                    <code>
+                        &HEADER&<br>
+                        &ensp;&ensp;&USER&Erik$USER$<br>
+                        &ensp;&ensp;&NAME&muito$NAME$<br>
+                        &ensp;&ensp;&PUBLIC&true$PUBLIC$<br>
+                        &ensp;&ensp;&TYPE&LISTA$TYPE$<br>
+                        $HEADER$<br>
+                        <br>
+                        &CONTENT&<br>
+                        &ensp;&ensp;&DATA&eu$DATA$<br>
+                        &ensp;&ensp;&DATA&tu$DATA$<br>
+                        &ensp;&ensp;&DATA&ele$DATA$<br>
+                        &ensp;&ensp;&DATA&nos$DATA$<br>
+                        &ensp;&ensp;&DATA&vos$DATA$<br>
+                        &ensp;&ensp;&DATA&eles$DATA$<br>
+                        $CONTENT$<br>
+                    </code>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+            <h1 id="ester" class="center-align">Estrutura e Regras:</h1>
+            <br>
+            <br>
+            <p>* Todo arquivo deve contar as duas tags de acoplamento "HEADER" e "CONTENT". <br>
+                * Na Tag "HEADER" é necessario ter todas as seguintes tags: "USER, "NAME", "PUBLIC", "TYPE". <br>
+                * Se for usar "false" para a tag "PUBLIC" você deve ter em conciencia que as seguintes tags deverão ser
+                cifradas conforme a chave de login (é possivel gerar uma automaticamente pelos <a href="">Comandos de terminal</a>):
+                "USER" e todas as tags "DATA" <br>
+                * Cada tag "DATA" dentro de "CONTENT" é uma nova linha de dado</p>
+            <br><br>
+
+        </div>
+
+
+    </main>
+
+    <footer class="page-footer grey darken-4">
+        <div class="footer-copyright">
+            <div class="container">
+                © 2018 Erik Borella
+                <a class="grey-text text-lighten-4 right" href="https://github.com/ErikIPU2/JavaVetorManager">Repositorio</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".sidenav").sidenav({});
+            $(".sidenav").sidenav('open');
+
+            $('.collapsible').collapsible();
+
+        })
+    </script>
+</body>
+
+</html>

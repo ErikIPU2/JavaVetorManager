@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Manipulação dos arquivos de usuario
  * @author erik
  */
 public class UserManer {

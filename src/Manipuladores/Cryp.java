@@ -7,7 +7,7 @@ package Manipuladores;
 
 
 /**
- *
+ * Classe para geração de chave e operações de cifragem
  * @author erik
  */
 public class Cryp {

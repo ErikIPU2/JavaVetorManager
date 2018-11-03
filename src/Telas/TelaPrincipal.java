@@ -63,6 +63,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements IopenInterface{
         b_abrir = new javax.swing.JMenuItem();
         b_sair = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,6 +104,15 @@ public class TelaPrincipal extends javax.swing.JFrame implements IopenInterface{
                 jMenu2ActionPerformed(evt);
             }
         });
+
+        jMenuItem1.setText("Abrir no Navegador");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -184,20 +194,24 @@ public class TelaPrincipal extends javax.swing.JFrame implements IopenInterface{
     }//GEN-LAST:event_b_abrirActionPerformed
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+
+    }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+       
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         if (Desktop.isDesktopSupported()) {
             try {
-                Desktop.getDesktop().browse(new URI("http://desciclopedia.org/wiki/Programa%C3%A7%C3%A3o_Orientada_a_Gambiarras"));
+                Desktop.getDesktop().browse(new URI("https://listdataabout.firebaseapp.com/"));
             } catch (URISyntaxException ex) {
                 Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_jMenu2MouseClicked
-
-    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
-       
-    }//GEN-LAST:event_jMenu2ActionPerformed
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     
     @Override
@@ -274,5 +288,6 @@ public class TelaPrincipal extends javax.swing.JFrame implements IopenInterface{
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
 }

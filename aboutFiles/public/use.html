@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Sobre - UmasFilasAi: Como usar</title>
+	<style>
+		body {
+			display: flex;
+			min-height: 100vh;
+			flex-direction: column;
+		}
+
+		main {
+			flex: 1 0 auto;
+		}
+
+		header,
+		main,
+		footer {
+			padding-left: 300px;
+		}
+
+		@media only screen and (max-width : 992px) {
+
+			header,
+			main,
+			footer {
+				padding-left: 0;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<nav class=" grey darken-4">
+			<div class="nav-wrapper">
+				<a href="index.html" class="brand-logo">Sobre</a>
+			</div>
+		</nav>
+
+		<ul id="slide-out" class="sidenav sidenav-fixed">
+			<li class="no-padding">
+				<ul class="collapsible collapsible-accordion">
+
+					<li>
+                        <a class="collapsible-header">Como usar</a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="use.html#criandoConta">Criando uma conta</a></li>
+                                <li><a href="use.html#entrando">Entrando</a></li>
+                                <li><a href="use.html#criandonovalista">Criando uma nova lista</a></li>
+                                <li><a href="use.html#usando">Usando e manipulando os dados</a></li>
+                                <li><a href="use.html#privado">Arquivos privados</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a class="collapsible-header">Criando seus propios arquivos</a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="create.html#introducao">Introdução</a></li>
+                                <li><a href="create.html#ester">Estrutura e Regras</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a class="collapsible-header" href="javadoc/index.html">Documentação</a>
+                    </li>
+
+                    <li>
+                        <a class="collapsible-header">Comandos de terminal</a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="term.html#introducao">Introdução</a></li>
+                                <li><a href="term.html#comandos">Comandos</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+
+				</ul>
+			</li>
+		</ul>
+
+	</header>
+
+	<main>
+
+		<div class="container">
+			<div class="center-align">
+				<h1>Tela de login e cadastro:</h1>
+				<br>
+			</div>
+			<h4 id="criandoConta">Criando uma conta:</h4>
+			<br>
+
+			<div class="row">
+				<div class="col s6">
+					<p>1. Ao iniciar o programa você irá se deparar com a tela de login. No canto inferior direito você irá ver um
+						botão escrito "Cadastrar", clike nesse botão!</p>
+					<br>
+
+				</div>
+				<div class="col s6">
+					<img src="img/use2.png" class="responsive-img" width="70%">
+				</div>
+			</div>
+
+			<div class="divider"></div>
+
+			<br>
+
+			<div class="row">
+				<div class="col s6">
+					<p>2. Agora basta você preencher os seus dados e apertar no botão "Cadastrar"</p>
+					<br>
+				</div>
+				<div class="col s6">
+					<img src="img/use3.png" width="70%">
+				</div>
+			</div>
+
+		</div>
+
+		<br>
+
+		<div class="divider" style="padding-bottom: 5px"></div>
+
+		<br>
+
+		<div class="container">
+
+
+			<h4 id="entrando">Entrando: </h4>
+
+			<br>
+
+
+			<div class="row">
+				<div class="col s6">
+					<p>1. Na tela de login, basta digitar as suas infomações e apertar no botão "Logar".<br>Se as informações
+						estiverem
+						corretas você já estará na tela principal do programa</p>
+					<br>
+				</div>
+				<div class="col s6">
+					<img src="img/use2.png" width="70%">
+				</div>
+			</div>
+
+		</div>
+
+		<br>
+		<div class="divider" style="padding-bottom: 5px"></div>
+		<br>
+
+		<div class="container center-align">
+			<h1>Tela Principal: </h1>
+			<br>
+		</div>
+
+		<div class="container">
+
+			<h4 id="criandonovalista">Criando uma nova lista:</h4>
+
+			<br>
+
+
+			<div class="row">
+				<div class="col s6">
+					<p>1. Na pagina inicial do programa, clike sobre a aba "Arquivo" no menu superior. E após em "Novo" (Você pode
+						usar o atalho "ctrl + n" para abrir direto)</p>
+				</div>
+				<div class="col s6">
+					<img src="img/use4.png" width="90%">
+				</div>
+			</div>
+
+			<br>
+			<div class="divider"></div>
+			<br>
+
+			<div class="row">
+				<div class="col s6">
+					<p>2. Após abrir o criador de lista, você verá alguns items, basta selecionar o desejado e apertar em criar</p><br>
+					Tipo da estrutura de dados:
+					<ol type="I">
+						<li>LIFO: LIFO é do tipo pilha, ou seja, o elemento entra na primeira posição. E também o primeiro elemento a ser
+							removido é o primeiro</li>
+						<li>FIFO: FIFO é do tipo filam ou seja, o elemento entra na ultima posição. E o primeiro elemento que sai é o
+							primeiro</li>
+						<li>LISTA: Lista é onde temos a maior liberdade. Lista inclui opções de ordenação</li>
+					</ol>
+					<br>
+					Nome: Nome do arquivo
+					<br>
+					<br>
+					Lista publica: Permite outras pessoas lerem e modificarem o seu arquivo (Se não for publica os seus dados estarão
+					todos criptografados)
+				</div>
+				<div class="col s6">
+					<img src="img/use5.png">
+				</div>
+			</div>
+		</div>
+
+		<br>
+		<div class="divider" style="padding-bottom: 5px"></div>
+		<br>
+
+		<div class="container">
+			<h4 id="usando">Usando e manipulando os dados</h4>
+			<br>
+			<div class="row">
+				<div class="col s6">
+					<p>1. Para começar precisamos abrir um arquivo com a extenção ".listdata", para isso basta apertar em "abrir" na
+						aba "Arquivo" no menu superior. Se o arquivo for valido será aberto</p>
+				</div>
+				<div class="col s6">
+					<img src="img/use6.png" width="90%">
+				</div>
+			</div>
+
+			<br>
+			<div class="divider"></div>
+			<br>
+
+			<div class="row">
+				<div class="col s6">
+					<p>2. Após abrir um arquivo valido, você verá dois botões na parte inferior da janela, elas são bem simples e
+						autoexplicativas de usar</p>
+					<br>
+					<ol type="I">
+
+						<li>Adicionar: Permite adicionar um ou varios elementos</li>
+						<li>Remover: Permite remover um ou varios elementos</li>
+						<li>Ordenação(Apenas em tipos lista): Permite fazer a ordenação dos dados</li>
+						</o>
+				</div>
+				<div class="col s6">
+					<img src="img/use7.png">
+				</div>
+			</div>
+		</div>
+
+		<br>
+		<div class="divider" style="padding-bottom: 5px"></div>
+		<br>
+
+		<div class="container">
+			<h4 id="privado">Arquivos privados</h4>
+			<div class="row">
+				<div class="col s6">
+					<p>1. Caso você tente acessar um arquivo de outro usuario e que seja privado, você ira se deparar com uma mensagem
+						de alerta. Nessa caso você tem duas possibilidades: </p>
+					<ol type="1">
+						<li>Cancelar: Você não irá abrir o arquivo</li>
+						<br>
+						<li>Ok: Caso escolha essa opção será solicitado os dados de login da pessoa que criou esse arquivo, se estiverem
+							coretos o arquivo irá abrir</li>
+					</ol>
+				</div>
+				<div class="col s6">
+					<img src="img/use8.png" alt="">
+				</div>
+			</div>
+		</div>
+
+
+	</main>
+
+	<footer class="page-footer grey darken-4">
+		<div class="footer-copyright">
+			<div class="container">
+				© 2018 Erik Borella
+				<a class="grey-text text-lighten-4 right" href="https://github.com/ErikIPU2/JavaVetorManager">Repositorio</a>
+			</div>
+		</div>
+	</footer>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$(".sidenav").sidenav({});
+			$(".sidenav").sidenav('open');
+
+			$('.collapsible').collapsible();
+
+		})
+	</script>
+</body>
+
+</html>

@@ -106,7 +106,7 @@ public class PaineLifo extends javax.swing.JInternalFrame implements Ipaines {
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         b_add.setText("Adicionar");
-        b_add.setToolTipText("Adiciona elementos na fim da fila");
+        b_add.setToolTipText("Adiciona elementos no topo da pilha");
         b_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_addActionPerformed(evt);
@@ -115,7 +115,7 @@ public class PaineLifo extends javax.swing.JInternalFrame implements Ipaines {
         jPanel1.add(b_add);
 
         b_remove.setText("Remover");
-        b_remove.setToolTipText("Remove a primeira pessoa da fila");
+        b_remove.setToolTipText("Remove o topo da pilha");
         b_remove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_removeActionPerformed(evt);

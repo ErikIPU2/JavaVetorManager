@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ *Essa classe faz a interpretação e modificação dos arquivos
  * @author erik
  */
 public class ListdataInterpreter {
@@ -597,10 +597,17 @@ public class ListdataInterpreter {
         remove_contentData(0, key);
     }
     
-    public void sort(int method, int key) throws Exception{
+    /**
+     * Organiza a lista com o metodo selecionado
+     * @param method Metodo de sorteamento
+     * @param key chave de cifrage,
+     * @throws Exception 
+     */
+    public long sort(int method, int key) throws Exception{
         
         //bubble sort
         if (method == 0) {
+            long ms = System.currentTimeMillis();
             String[] content = this.content_getDatas(key);
             String temp;
                 
@@ -615,10 +622,12 @@ public class ListdataInterpreter {
             }
                 
             this.set_contentData(content, key);
+            return System.currentTimeMillis() - ms;
         }
         
         //selection sort
         else if (method == 1) {
+            long ms = System.currentTimeMillis();
             String[] content = this.content_getDatas(key);
             
             for (int i = 0; i < content.length - 1; i++) {
@@ -632,23 +641,121 @@ public class ListdataInterpreter {
             }
             
             this.set_contentData(content, key);
+            return System.currentTimeMillis() - ms;
         }
         
         //merge sort
         else if (method == 2) {
             
+            long ms = System.currentTimeMillis();
+            String[] content = this.content_getDatas(key);
+            
+            this.mergeSort(content, content.length);
+            
+            this.set_contentData(content, key);
+            
+            return System.currentTimeMillis() - ms;
+           
         }
         
         //quick sort
         else if (method == 3) {
+            long ms = System.currentTimeMillis();
             
+            String[] content = this.content_getDatas(key);
+            this.quickSort(content, 0, content.length - 1);
+            
+            this.set_contentData(content, key);
+            
+            return System.currentTimeMillis() - ms;
         }
         
         else {
             throw new Exception("Metodo de ordenação não encontrado");
         }
         
+    }
+    
+    private void quickSort(String[] vet, int start, int end) {
+        if (start < end) {
+            int posPivo = separe(vet, start, end);
+            quickSort(vet, start, posPivo - 1);
+            quickSort(vet, posPivo + 1, end);
+        }
+    }
+    
+    private int separe(String[] vet, int start, int end) {
+        String pivo = vet[start];
+        int i = start + 1;
+        int f = end;
+        
+        while (i <= f) {
+            if (vet[i].compareTo(pivo) <= 0) {
+                i++;
+            }
+            else if (pivo.compareTo(vet[f]) < 0) {
+                f--;
+            }
+            else {
+                String change = vet[i];
+                vet[i] = vet[f];
+                vet[f] = change;
+                i++;
+                f--;
+            }
+        }
+        vet[start] = vet[f];
+        vet[f] = pivo;
+        return f;
+    }
+    
+    private void mergeSort(String[] a, int n) {
+        if (n < 2) {
+            return;
+        }
+        
+        int mid = n / 2;
+        String[] l = new String[mid];
+        String[] r = new String[n - mid];
+        
+        for (int i = 0; i < mid; i++) {
+            l[i] = a[i];
+        }
+        
+        for (int i = mid; i < n; i++) {
+            r[i - mid] = a[i];
+        }
+        
+        mergeSort(l, mid);
+        mergeSort(r, n - mid);
+        
+        merge(a, l, r, mid, n - mid);
+    }
+
+    private void merge(String[] a, String[] l, String[] r, int left, int right) {
+        
+        int i = 0, j = 0, k = 0;
+        
+        while (i < left && j < right) {
+            if (l[i].compareTo(r[j]) < 0) {
+                a[k++] = l[i++];
+            } else {
+                a[k++] = r[j++];
+            }
+        }
+        
+        while (i < left) {
+            a[k++] = l[i++];
+        }
+        
+        while (j < right) {
+            a[k++] = r[j++];
+        }        
         
     }
+    
+ 
+    
+    
 
 }

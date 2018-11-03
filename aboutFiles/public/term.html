@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sobre - UmasFilasAi</title>
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+
+        header,
+        main,
+        footer {
+            padding-left: 300px;
+        }
+
+        @media only screen and (max-width : 992px) {
+
+            header,
+            main,
+            footer {
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class=" grey darken-4">
+            <div class="nav-wrapper">
+                <a href="index.html" class="brand-logo">Sobre</a>
+            </div>
+        </nav>
+
+        <ul id="slide-out" class="sidenav sidenav-fixed">
+            <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+
+                    <li>
+                        <a class="collapsible-header">Como usar</a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="use.html#criandoConta">Criando uma conta</a></li>
+                                <li><a href="use.html#entrando">Entrando</a></li>
+                                <li><a href="use.html#criandonovalista">Criando uma nova lista</a></li>
+                                <li><a href="use.html#usando">Usando e manipulando os dados</a></li>
+                                <li><a href="use.html#privado">Arquivos privados</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a class="collapsible-header">Criando seus propios arquivos</a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="create.html#introducao">Introdução</a></li>
+                                <li><a href="create.html#ester">Estrutura e Regras</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a class="collapsible-header" href="javadoc/index.html">Documentação</a>
+                    </li>
+
+                    <li>
+                        <a class="collapsible-header">Comandos de terminal</a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="term.html#introducao">Introdução</a></li>
+                                <li><a href="term.html#comandos">Comandos</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+
+
+                </ul>
+            </li>
+        </ul>
+
+    </header>
+
+    <main>
+
+        <div class="container">
+            <h1 id="introducao" class="center-align">Introdução:</h1>
+            <br>
+            <br>
+            <p>Com esses comandos executados em uma interface de linha de comandos é possivel executar diretamente e
+                independentemente alguns metodos das classes do pacote de manipuladores.<br>
+                Para executar esses comandos caso esteja usando um executavel .jar, basta usar esse comando em seu terminal: "java -jar UmasFilasAi.jar { comandos }" <br>
+                Caso esteja usando uma IDE, você devera configurar ela para que passe os comandos na hora da sua execução. <br>
+                Todos os comandos são encadeados, ou seja, você pode passar varios e todos será exucutados em sequencia <br><br>
+                <strong>Dica: </strong> <br>
+                caso deseje guardar algum resultado em alguma variavel do seu shell, você pode executar o seguinte comando: lData=`java -jar UmasFilasAi.jar -o -k string1 string2`. Esse comando irá armazenar a chave gerada na variavel lData, Para usa-lá basta usar "$lData", como por exemplo para ver o que esta armazenada nela: "echo $lData".   
+            </p>
+            <br>
+            <div class="divider"></div>
+            <br>
+
+            <table id="comandos">
+                <thead>
+                    <tr>
+                        <th>Comando</th>
+                        <th>Função</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>-e ou --execute</th>
+                        <th>Permite abrir a inteface grafica do programa após a exeucução do argumentos</th>
+                        <th>-</th>
+                    </tr>
+                    <tr>
+                        <th>-o ou --omite</th>
+                        <th>troca entre Omitir a mensagem do resultado, mostrando assim apenas o resultado. Caso usado
+                            mais de uma vez vai trocando a visibilidade</th>
+                        <th>-</th>
+                    </tr>
+                    <tr>
+                        <th>-k ou --keyGerate</th>
+                        <th>Gera uma chave de cifragem baseada em duas Strings</th>
+                        <th>-k string1 string2</th>
+                    </tr>
+                    <tr>
+                        <th>-c ou --cifre</th>
+                        <th>Cifra uma String com base em um numero inteiro</th>
+                        <th>-c senha 42</th>
+                    </tr>
+                    <tr>
+                        <th>-d ou --decifre</th>
+                        <th>Decifra uma String com base em um numero inteiro</th>
+                        <th>-d }yxy 10</th>
+                    </tr>
+                    <tr>
+                        <th>-h ou --headerGet</th>
+                        <th>Mostra o cabeçalho de um arquivo. (Segundo parametro é opcional, ele sera usado como chave para arquivos não publicos)</th>
+                        <th>-h list.listdata<br> -h listPrivada.listdata 10</th>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+    </main>
+
+    <footer class="page-footer grey darken-4">
+        <div class="footer-copyright">
+            <div class="container">
+                © 2018 Erik Borella
+                <a class="grey-text text-lighten-4 right" href="https://github.com/ErikIPU2/JavaVetorManager">Repositorio</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".sidenav").sidenav({});
+            $(".sidenav").sidenav('open');
+
+            $('.collapsible').collapsible();
+
+        })
+    </script>
+</body>
+
+</html>
