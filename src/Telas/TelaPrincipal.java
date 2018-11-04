@@ -89,6 +89,11 @@ public class TelaPrincipal extends javax.swing.JFrame implements IopenInterface{
 
         b_sair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
         b_sair.setText("Sair");
+        b_sair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_sairActionPerformed(evt);
+            }
+        });
         jMenu1.add(b_sair);
 
         jMenuBar1.add(jMenu1);
@@ -212,6 +217,16 @@ public class TelaPrincipal extends javax.swing.JFrame implements IopenInterface{
             }
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void b_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_sairActionPerformed
+        
+        this.username = "";
+        this.key = 0;
+        this.dispose();
+        
+        new TelaDeLogin().setVisible(true);
+        
+    }//GEN-LAST:event_b_sairActionPerformed
 
     
     @Override
