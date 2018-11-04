@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -62,6 +63,37 @@ public class ListdataInterpreter {
      * Quick sort
      */
     public final int QUICK_SORT = 3;
+    
+    /**
+     * Insertion sort
+     */
+    public final int INSERTION_SORT = 4;
+    
+    /**
+     * Comb sort
+     */
+    public final int COMB_SORT = 5;
+    
+    /**
+     * Head sort
+     */
+    public final int HEAP_SORT = 6;
+    
+    /**
+     * Shell sort
+     */
+    public final int SHELL_SORT = 7;
+    
+    /**
+     * Gnome sort
+     */
+    public final int GNOME_SORT = 8;
+    
+    /**
+     * Cocktail sort
+     */
+    public final int COCKTAIL_SORT = 9;
+
 
     private File path;
     
@@ -599,14 +631,15 @@ public class ListdataInterpreter {
     
     /**
      * Organiza a lista com o metodo selecionado
-     * @param method Metodo de sorteamento
+     * @param method Metodo de sorteamento - 10 disponiveis até o momento
      * @param key chave de cifrage,
+     * @return long - Tempo da ordenação
      * @throws Exception 
      */
     public long sort(int method, int key) throws Exception{
         
         //bubble sort
-        if (method == 0) {
+        if (method == this.BUBBLE_SORT) {
             long ms = System.currentTimeMillis();
             String[] content = this.content_getDatas(key);
             String temp;
@@ -626,7 +659,7 @@ public class ListdataInterpreter {
         }
         
         //selection sort
-        else if (method == 1) {
+        else if (method == this.SELECTION_SORT) {
             long ms = System.currentTimeMillis();
             String[] content = this.content_getDatas(key);
             
@@ -645,12 +678,63 @@ public class ListdataInterpreter {
         }
         
         //merge sort
-        else if (method == 2) {
+        else if (method == this.MERGE_SORT) {
+            
+            class mergeSort {
+                
+                protected void mergeSort(String[] a, int n) {
+                    if (n < 2) {
+                        return;
+                    }
+
+                    int mid = n / 2;
+                    String[] l = new String[mid];
+                    String[] r = new String[n - mid];
+
+                    for (int i = 0; i < mid; i++) {
+                        l[i] = a[i];
+                    }
+
+                    for (int i = mid; i < n; i++) {
+                        r[i - mid] = a[i];
+                    }
+
+                    mergeSort(l, mid);
+                    mergeSort(r, n - mid);
+
+                    merge(a, l, r, mid, n - mid);
+                }
+
+                protected void merge(String[] a, String[] l, String[] r, int left, int right) {
+
+                    int i = 0, j = 0, k = 0;
+
+                    while (i < left && j < right) {
+                        if (l[i].compareTo(r[j]) < 0) {
+                            a[k++] = l[i++];
+                        } else {
+                            a[k++] = r[j++];
+                        }
+                    }
+
+                    while (i < left) {
+                        a[k++] = l[i++];
+                    }
+
+                    while (j < right) {
+                        a[k++] = r[j++];
+                    }        
+
+                }
+            }
+            
+            mergeSort merge = new mergeSort();
             
             long ms = System.currentTimeMillis();
-            String[] content = this.content_getDatas(key);
             
-            this.mergeSort(content, content.length);
+            String[] content = this.content_getDatas(key);
+                        
+            merge.mergeSort(content, content.length);
             
             this.set_contentData(content, key);
             
@@ -659,103 +743,295 @@ public class ListdataInterpreter {
         }
         
         //quick sort
-        else if (method == 3) {
+        else if (method == this.QUICK_SORT) {
+            
+            class quickSort {
+                
+                protected void quickSort(String[] vet, int start, int end) {
+                    if (start < end) {
+                        int posPivo = separe(vet, start, end);
+                        quickSort(vet, start, posPivo - 1);
+                        quickSort(vet, posPivo + 1, end);
+                    }
+                }
+                
+                protected int separe(String[] vet, int start, int end) {
+                    String pivo = vet[start];
+                    int i = start + 1;
+                    int f = end;
+
+                    while (i <= f) {
+                        if (vet[i].compareTo(pivo) <= 0) {
+                            i++;
+                        }
+                        else if (pivo.compareTo(vet[f]) < 0) {
+                            f--;
+                        }
+                        else {
+                            String change = vet[i];
+                            vet[i] = vet[f];
+                            vet[f] = change;
+                            i++;
+                            f--;
+                        }
+                    }
+                    vet[start] = vet[f];
+                    vet[f] = pivo;
+                    return f;
+                }
+            }
+            
+            quickSort quick = new quickSort();
+            
             long ms = System.currentTimeMillis();
             
             String[] content = this.content_getDatas(key);
-            this.quickSort(content, 0, content.length - 1);
+                        
+            quick.quickSort(content, 0, content.length - 1);
             
             this.set_contentData(content, key);
             
             return System.currentTimeMillis() - ms;
         }
         
+        //insertion sort
+        else if (method == this.INSERTION_SORT) {
+            long ms = System.currentTimeMillis();
+            String[] content = this.content_getDatas(key);
+            
+            int n = content.length;
+            for (int i = 1; i < n; ++i) {
+                String k = content[i];
+                int j = i - 1;
+                
+                while (j >= 0 && content[j].compareTo(k) > 0) {
+                    content[j+1] = content[j];
+                    j = j - 1;
+                }
+                content[j+1] = k;
+            }
+            
+            this.set_contentData(content, key);
+            
+            
+            return System.currentTimeMillis() - ms;
+        }
+        
+        //combsort
+        else if (method == this.COMB_SORT) {
+            
+            class combSort {
+                
+                protected int getNextGap(int gap) {
+                    gap = (gap * 10)/13;
+                    if (gap < 1) {
+                        return 1;
+                    }
+                    return gap;
+                }
+                
+                protected void sort(String arr[]) {
+                    int n = arr.length;
+                    
+                    int gap = n;
+                    
+                    boolean swapped = true;
+                    
+                    while (gap != 1 || swapped == true) {
+                        gap = this.getNextGap(gap);
+                        swapped = false;
+                        
+                        for (int i = 0; i < n-gap; i++) {
+                            if (arr[i].compareTo(arr[i+gap]) > 0) {
+                                String temp = arr[i];
+                                arr[i] = arr[i+gap];
+                                arr[i+gap] = temp;
+                                
+                                swapped = true;
+                            }
+                        }
+                    }
+                }
+                
+            }
+            
+            combSort comb = new combSort();
+            
+            long ms = System.currentTimeMillis();
+            
+            String[] content = this.content_getDatas(key);
+            
+            comb.sort(content);
+            
+            this.set_contentData(content, key);
+            
+            return System.currentTimeMillis() - ms;
+            
+        }
+        
+        //heap sort
+        else if (method == this.HEAP_SORT) {
+            
+            class heapSort {
+
+                protected void sort(String[] arr) {
+                    int n = arr.length;
+                    
+                    for (int i = n / 2 - 1; i >= 0; i--) {
+                        heapify(arr, n, i);
+                    }
+                    
+                    for (int i = n - 1; i >= 0; i--) {
+                        String temp = arr[0];
+                        arr[0] = arr[i];
+                        arr[i] = temp;
+                        
+                        heapify(arr, i, 0);
+                    }
+                }
+                
+                protected void heapify(String arr[], int n, int i) {
+                    int largest = i;
+                    int l = 2 * i + 1;
+                    int r = 2 * i + 2;
+                    
+                    if (l < n && arr[l].compareTo(arr[largest]) > 0) {
+                        largest = l;
+                    }
+                    
+                    if (r < n && arr[r].compareTo(arr[largest]) > 0) {
+                        largest = r;
+                    }
+                    
+                    if (largest != i) {
+                        String swap = arr[i];
+                        arr[i] = arr[largest];
+                        arr[largest] = swap;
+                        
+                        heapify(arr, n, largest);
+                    }
+                }
+            }
+            
+            heapSort heap = new heapSort();
+            
+            long ms = System.currentTimeMillis();
+            
+            String[] content = this.content_getDatas(key);
+            
+            heap.sort(content);
+            
+            this.set_contentData(content, key);
+            
+            return System.currentTimeMillis() - ms;
+        }
+        
+        //Shell sort
+        else if (method == this.SHELL_SORT) {
+            long ms = System.currentTimeMillis();
+            
+            String[] content = this.content_getDatas(key);
+            
+            int n = content.length;
+            for (int gap = n/2; gap > 0; gap /= 2) {
+                for (int i = gap; i < n; i += 1) {
+                    String temp = content[i];
+                    
+                    int j;
+                    
+                    for (j = i; j >= gap && content[j - gap].compareTo(temp) > 0; j -= gap) 
+                        content[j] = content[j - gap];
+                    content[j] = temp;
+                }
+            }
+            
+            this.set_contentData(content, key);
+            
+            return System.currentTimeMillis() - ms;
+        }
+        else if (method == this.GNOME_SORT) {
+            
+            long ms = System.currentTimeMillis();
+            
+            String[] content = this.content_getDatas(key);
+            
+            int n = content.length;
+            int index = 0;
+            
+            while (index < n) {
+                if (index == 0) {
+                    index++;
+                }
+                if (content[index].compareTo(content[index - 1]) >= 0) {
+                    index++;
+                }
+                else {
+                    String temp = "";
+                    temp = content[index];
+                    content[index] = content[index - 1];
+                    content[index - 1] = temp;
+                    index--;
+                }
+            }
+            
+            this.set_contentData(content, key);
+            
+            return System.currentTimeMillis() - ms;
+            
+        }
+        
+        else if (method == this.COCKTAIL_SORT) {
+            
+            long ms = System.currentTimeMillis();
+            
+            String[] content = this.content_getDatas(key);
+            
+            boolean swaped = true;
+            int start = 0;
+            int end = content.length;
+            
+            while (swaped == true) {
+                swaped = false;
+                
+                for (int i = start; i < end - 1; ++i) {
+                    if (content[i].compareTo(content[i + 1]) > 0) {
+                        String temp = content[i];
+                        content[i] = content[i + 1];
+                        content[i + 1] = temp;
+                        swaped = true;
+                    }
+                }
+                
+                if (swaped == false) {
+                    break;
+                }
+                
+                swaped = false;
+                
+                end = end - 1;
+                
+                for (int i = end - 1; i >= start; i--) {
+                    if (content[i].compareTo(content[i + 1]) > 0) {
+                        String temp = content[i];
+                        content[i] = content[i + 1];
+                        content[i + 1] = temp;
+                        swaped = true;
+                    }
+                }
+                
+                start = start + 1;
+            }
+            
+            this.set_contentData(content, key);
+            
+            return System.currentTimeMillis() - ms;
+            
+        }
+
         else {
             throw new Exception("Metodo de ordenação não encontrado");
         }
         
     }
     
-    private void quickSort(String[] vet, int start, int end) {
-        if (start < end) {
-            int posPivo = separe(vet, start, end);
-            quickSort(vet, start, posPivo - 1);
-            quickSort(vet, posPivo + 1, end);
-        }
-    }
-    
-    private int separe(String[] vet, int start, int end) {
-        String pivo = vet[start];
-        int i = start + 1;
-        int f = end;
-        
-        while (i <= f) {
-            if (vet[i].compareTo(pivo) <= 0) {
-                i++;
-            }
-            else if (pivo.compareTo(vet[f]) < 0) {
-                f--;
-            }
-            else {
-                String change = vet[i];
-                vet[i] = vet[f];
-                vet[f] = change;
-                i++;
-                f--;
-            }
-        }
-        vet[start] = vet[f];
-        vet[f] = pivo;
-        return f;
-    }
-    
-    private void mergeSort(String[] a, int n) {
-        if (n < 2) {
-            return;
-        }
-        
-        int mid = n / 2;
-        String[] l = new String[mid];
-        String[] r = new String[n - mid];
-        
-        for (int i = 0; i < mid; i++) {
-            l[i] = a[i];
-        }
-        
-        for (int i = mid; i < n; i++) {
-            r[i - mid] = a[i];
-        }
-        
-        mergeSort(l, mid);
-        mergeSort(r, n - mid);
-        
-        merge(a, l, r, mid, n - mid);
-    }
-
-    private void merge(String[] a, String[] l, String[] r, int left, int right) {
-        
-        int i = 0, j = 0, k = 0;
-        
-        while (i < left && j < right) {
-            if (l[i].compareTo(r[j]) < 0) {
-                a[k++] = l[i++];
-            } else {
-                a[k++] = r[j++];
-            }
-        }
-        
-        while (i < left) {
-            a[k++] = l[i++];
-        }
-        
-        while (j < right) {
-            a[k++] = r[j++];
-        }        
-        
-    }
-    
- 
-    
-    
-
 }

@@ -86,10 +86,19 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
         b_remove = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        simples = new javax.swing.JMenuItem();
         s_bubble = new javax.swing.JMenuItem();
         s_selection = new javax.swing.JMenuItem();
+        s_insertion = new javax.swing.JMenuItem();
+        s_comb = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        sofisticados = new javax.swing.JMenuItem();
         s_merge = new javax.swing.JMenuItem();
         s_quick = new javax.swing.JMenuItem();
+        s_heap = new javax.swing.JMenuItem();
+        s_shell = new javax.swing.JMenuItem();
+        s_gnome = new javax.swing.JMenuItem();
+        s_cocktail = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -117,6 +126,10 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
 
         jMenu1.setText("Ordenação");
 
+        simples.setText("Métodos simples");
+        simples.setEnabled(false);
+        jMenu1.add(simples);
+
         s_bubble.setText("Bubble Sort");
         s_bubble.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,6 +146,29 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
         });
         jMenu1.add(s_selection);
 
+        s_insertion.setText("Insertion Sort");
+        s_insertion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s_insertionActionPerformed(evt);
+            }
+        });
+        jMenu1.add(s_insertion);
+
+        s_comb.setText("Comb Sort");
+        s_comb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s_combActionPerformed(evt);
+            }
+        });
+        jMenu1.add(s_comb);
+
+        jSeparator1.setToolTipText("");
+        jMenu1.add(jSeparator1);
+
+        sofisticados.setText("Métodos sofisticados");
+        sofisticados.setEnabled(false);
+        jMenu1.add(sofisticados);
+
         s_merge.setText("Merge Sort");
         s_merge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,6 +184,38 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
             }
         });
         jMenu1.add(s_quick);
+
+        s_heap.setText("Heap Sort");
+        s_heap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s_heapActionPerformed(evt);
+            }
+        });
+        jMenu1.add(s_heap);
+
+        s_shell.setText("Shell Sort");
+        s_shell.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s_shellActionPerformed(evt);
+            }
+        });
+        jMenu1.add(s_shell);
+
+        s_gnome.setText("Gnome Sort");
+        s_gnome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s_gnomeActionPerformed(evt);
+            }
+        });
+        jMenu1.add(s_gnome);
+
+        s_cocktail.setText("Cocktail Sort");
+        s_cocktail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s_cocktailActionPerformed(evt);
+            }
+        });
+        jMenu1.add(s_cocktail);
 
         jMenuBar1.add(jMenu1);
 
@@ -316,6 +384,89 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
         }
     }//GEN-LAST:event_s_mergeActionPerformed
 
+    private void s_insertionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_insertionActionPerformed
+        try {
+            
+            long time = this.intp.sort(this.intp.COMB_SORT, this.key);
+            this.renderTable();
+            
+            JOptionPane.showMessageDialog(this, "Ordenação efetuada com sucesso\nTempo: " +time+ " ms");
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }//GEN-LAST:event_s_insertionActionPerformed
+
+    private void s_combActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_combActionPerformed
+       
+        try {
+            long time = this.intp.sort(this.intp.INSERTION_SORT, this.key);
+            this.renderTable();
+            
+            JOptionPane.showMessageDialog(this, "Ordenação efetuada com sucesso\nTempo: " +time+ " ms");
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+        
+    }//GEN-LAST:event_s_combActionPerformed
+
+    private void s_heapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_heapActionPerformed
+        
+         try {
+            long time = this.intp.sort(this.intp.HEAP_SORT, this.key);
+            this.renderTable();
+            
+            JOptionPane.showMessageDialog(this, "Ordenação efetuada com sucesso\nTempo: " +time+ " ms");
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+
+    }//GEN-LAST:event_s_heapActionPerformed
+
+    private void s_shellActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_shellActionPerformed
+        
+        try {
+            long time = this.intp.sort(this.intp.SHELL_SORT, this.key);
+            this.renderTable();
+            
+            JOptionPane.showMessageDialog(this, "Ordenação efetuada com sucesso\nTempo: " +time+ " ms");
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+        
+    }//GEN-LAST:event_s_shellActionPerformed
+
+    private void s_gnomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_gnomeActionPerformed
+        
+        try {
+            long time = this.intp.sort(this.intp.GNOME_SORT, this.key);
+            this.renderTable();
+            
+            JOptionPane.showMessageDialog(this, "Ordenação efetuada com sucesso\nTempo: " +time+ " ms");
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+        
+    }//GEN-LAST:event_s_gnomeActionPerformed
+
+    private void s_cocktailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_cocktailActionPerformed
+
+        try {
+            long time = this.intp.sort(this.intp.COCKTAIL_SORT, this.key);
+            this.renderTable();
+            
+            JOptionPane.showMessageDialog(this, "Ordenação efetuada com sucesso\nTempo: " +time+ " ms");
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+        
+    }//GEN-LAST:event_s_cocktailActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_add;
@@ -323,10 +474,19 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuItem s_bubble;
+    private javax.swing.JMenuItem s_cocktail;
+    private javax.swing.JMenuItem s_comb;
+    private javax.swing.JMenuItem s_gnome;
+    private javax.swing.JMenuItem s_heap;
+    private javax.swing.JMenuItem s_insertion;
     private javax.swing.JMenuItem s_merge;
     private javax.swing.JMenuItem s_quick;
     private javax.swing.JMenuItem s_selection;
+    private javax.swing.JMenuItem s_shell;
+    private javax.swing.JMenuItem simples;
+    private javax.swing.JMenuItem sofisticados;
     private javax.swing.JList<String> viewList;
     // End of variables declaration//GEN-END:variables
 }
