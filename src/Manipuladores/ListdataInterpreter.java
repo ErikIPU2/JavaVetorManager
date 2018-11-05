@@ -93,6 +93,11 @@ public class ListdataInterpreter {
      * Cocktail sort
      */
     public final int COCKTAIL_SORT = 9;
+    
+    /**
+     * Bogo sort
+     */
+    public final int BOGO_SORT = 10;
 
 
     private File path;
@@ -949,6 +954,8 @@ public class ListdataInterpreter {
             
             return System.currentTimeMillis() - ms;
         }
+        
+        //gnome sort
         else if (method == this.GNOME_SORT) {
             
             long ms = System.currentTimeMillis();
@@ -980,6 +987,7 @@ public class ListdataInterpreter {
             
         }
         
+        //coctail sort
         else if (method == this.COCKTAIL_SORT) {
             
             long ms = System.currentTimeMillis();
@@ -1027,11 +1035,52 @@ public class ListdataInterpreter {
             return System.currentTimeMillis() - ms;
             
         }
+        
+        //bogo sort
+        else if (method == this.BOGO_SORT) {
+           class BogoSort {
+               protected BogoSort(String[] i) {
+                   while (!isSorted(i)) {
+                       shuffle(i);
+                   }
+               }
+               
+               private void shuffle(String[] i) {
+                   for (int x = 0; x < i.length; ++x) {
+                       int index1 = (int) (Math.random() * i.length);
+                       int index2 = (int) (Math.random() * i.length);
+                       String a = i[index1];
+                       i[index1] = i[index2];
+                       i[index2] = a;
+                   }
+               }
+               
+               private boolean isSorted(String[] i) {
+                   for (int x = 0; x < i.length - 1; ++x) {
+                       if (i[x].compareTo(i[x + 1]) > 0) {
+                           return false;
+                       }
+                   }
+                   return true;
+               }
+           }
+           
+           long ms = System.currentTimeMillis();
+           
+           String[] content = this.content_getDatas(key);
+           
+           new BogoSort(content);
+           
+           this.set_contentData(content, key);
+           
+           return System.currentTimeMillis() - ms;
+        }
 
         else {
             throw new Exception("Metodo de ordenação não encontrado");
         }
         
     }
+    
     
 }

@@ -99,6 +99,9 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
         s_shell = new javax.swing.JMenuItem();
         s_gnome = new javax.swing.JMenuItem();
         s_cocktail = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        nrecomendado = new javax.swing.JMenuItem();
+        s_bogo = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -216,6 +219,19 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
             }
         });
         jMenu1.add(s_cocktail);
+        jMenu1.add(jSeparator2);
+
+        nrecomendado.setText("Não recomendado");
+        nrecomendado.setEnabled(false);
+        jMenu1.add(nrecomendado);
+
+        s_bogo.setText("Bogo Sort(Random Sort)");
+        s_bogo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s_bogoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(s_bogo);
 
         jMenuBar1.add(jMenu1);
 
@@ -467,6 +483,21 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
         
     }//GEN-LAST:event_s_cocktailActionPerformed
 
+    private void s_bogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_bogoActionPerformed
+        
+        try {
+            long time = this.intp.sort(this.intp.BOGO_SORT, this.key);
+            
+            this.renderTable();
+            
+            JOptionPane.showMessageDialog(this, "Ordenação efetuada com sucesso\nTempo: " +time+ " ms");
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+        
+    }//GEN-LAST:event_s_bogoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_add;
@@ -475,6 +506,9 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JMenuItem nrecomendado;
+    private javax.swing.JMenuItem s_bogo;
     private javax.swing.JMenuItem s_bubble;
     private javax.swing.JMenuItem s_cocktail;
     private javax.swing.JMenuItem s_comb;
