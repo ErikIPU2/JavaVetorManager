@@ -485,16 +485,27 @@ public class PainelLista extends javax.swing.JInternalFrame implements Ipaines{
 
     private void s_bogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_bogoActionPerformed
         
-        try {
-            long time = this.intp.sort(this.intp.BOGO_SORT, this.key);
-            
-            this.renderTable();
-            
-            JOptionPane.showMessageDialog(this, "Ordenação efetuada com sucesso\nTempo: " +time+ " ms");
-            
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage());
-        }
+        new Thread() {
+            @Override
+            public void run() {
+                
+                try {
+                    
+                    JOptionPane.showMessageDialog(null, "Por motivos de segurança e permance, a lista será ordenada em segundo plano", "Aviso", JOptionPane.WARNING_MESSAGE);
+             
+                    long time = intp.sort(intp.BOGO_SORT, key);
+                    renderTable();
+                
+                    JOptionPane.showMessageDialog(null, "Ordenação efetuada com sucesso\nTempo: " +time+ " ms");
+                
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+
+                }
+
+                
+            }
+        }.start();
         
     }//GEN-LAST:event_s_bogoActionPerformed
 

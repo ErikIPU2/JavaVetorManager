@@ -685,9 +685,13 @@ public class ListdataInterpreter {
         //merge sort
         else if (method == this.MERGE_SORT) {
             
-            class mergeSort {
+            class MergeSort {
                 
-                protected void mergeSort(String[] a, int n) {
+                protected MergeSort(String[] a) {
+                    mergeSort(a, a.length);
+                }
+                
+                private void mergeSort(String[] a, int n) {
                     if (n < 2) {
                         return;
                     }
@@ -732,14 +736,12 @@ public class ListdataInterpreter {
 
                 }
             }
-            
-            mergeSort merge = new mergeSort();
-            
+                        
             long ms = System.currentTimeMillis();
             
             String[] content = this.content_getDatas(key);
-                        
-            merge.mergeSort(content, content.length);
+                                    
+            new MergeSort(content);
             
             this.set_contentData(content, key);
             
@@ -750,9 +752,13 @@ public class ListdataInterpreter {
         //quick sort
         else if (method == this.QUICK_SORT) {
             
-            class quickSort {
+            class QuickSort {
                 
-                protected void quickSort(String[] vet, int start, int end) {
+                protected QuickSort(String[] vet) {
+                    quickSort(vet, 0, vet.length - 1);
+                }
+                
+                private void quickSort(String[] vet, int start, int end) {
                     if (start < end) {
                         int posPivo = separe(vet, start, end);
                         quickSort(vet, start, posPivo - 1);
@@ -760,7 +766,7 @@ public class ListdataInterpreter {
                     }
                 }
                 
-                protected int separe(String[] vet, int start, int end) {
+                private int separe(String[] vet, int start, int end) {
                     String pivo = vet[start];
                     int i = start + 1;
                     int f = end;
@@ -785,14 +791,12 @@ public class ListdataInterpreter {
                     return f;
                 }
             }
-            
-            quickSort quick = new quickSort();
-            
+                        
             long ms = System.currentTimeMillis();
             
             String[] content = this.content_getDatas(key);
-                        
-            quick.quickSort(content, 0, content.length - 1);
+                                    
+            new QuickSort(content);
             
             this.set_contentData(content, key);
             
@@ -825,9 +829,13 @@ public class ListdataInterpreter {
         //combsort
         else if (method == this.COMB_SORT) {
             
-            class combSort {
+            class CombSort {
                 
-                protected int getNextGap(int gap) {
+                protected CombSort(String[] arr) {
+                    sort(arr);
+                }
+                
+                private int getNextGap(int gap) {
                     gap = (gap * 10)/13;
                     if (gap < 1) {
                         return 1;
@@ -835,7 +843,7 @@ public class ListdataInterpreter {
                     return gap;
                 }
                 
-                protected void sort(String arr[]) {
+                private void sort(String arr[]) {
                     int n = arr.length;
                     
                     int gap = n;
@@ -859,14 +867,12 @@ public class ListdataInterpreter {
                 }
                 
             }
-            
-            combSort comb = new combSort();
-            
+                        
             long ms = System.currentTimeMillis();
             
             String[] content = this.content_getDatas(key);
             
-            comb.sort(content);
+            new CombSort(content);
             
             this.set_contentData(content, key);
             
@@ -877,9 +883,13 @@ public class ListdataInterpreter {
         //heap sort
         else if (method == this.HEAP_SORT) {
             
-            class heapSort {
+            class HeapSort {
+                
+                protected HeapSort(String[] arr) {
+                    sort(arr);
+                }
 
-                protected void sort(String[] arr) {
+                private void sort(String[] arr) {
                     int n = arr.length;
                     
                     for (int i = n / 2 - 1; i >= 0; i--) {
@@ -895,7 +905,7 @@ public class ListdataInterpreter {
                     }
                 }
                 
-                protected void heapify(String arr[], int n, int i) {
+                private void heapify(String arr[], int n, int i) {
                     int largest = i;
                     int l = 2 * i + 1;
                     int r = 2 * i + 2;
@@ -918,13 +928,12 @@ public class ListdataInterpreter {
                 }
             }
             
-            heapSort heap = new heapSort();
             
             long ms = System.currentTimeMillis();
             
             String[] content = this.content_getDatas(key);
-            
-            heap.sort(content);
+                        
+            new HeapSort(content);
             
             this.set_contentData(content, key);
             
